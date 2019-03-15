@@ -1,0 +1,61 @@
+<div id="box1" class="box shadow">
+  <h3>Resolva mais rápido por aqui</h3>
+  <div class="table-responsive">
+    <table class="table table-alternada table-condensed table-hover">
+      <tbody>
+        <ng-container *ngFor="let faq of this.globals.varsIO.FAQ">
+          <tr onClick="
+          if(this.nextSibling.style.display == 'contents'){
+            document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+          }else{
+            document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+            this.nextSibling.style.display = 'contents';
+          }">
+            <td class="seta" [innerHTML]="faq.PERGUNTA">
+              <span class="seta">» </span>
+            </td>
+          </tr>
+          <tr class="detalhes">
+            <td [innerHTML]="faq.RESPOSTA">
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="box2" class="box shadow">
+  <h3>Representantes</h3>
+  <ng-container *ngFor="let rep of this.globals.logged.Representantes">
+    <div class="representante">
+      <!--div class="rep_img" [style.backgroundImage]="rep.URL"></div-->
+      <img src="/assets/images/CarlosAlberto.png" class="rep_img" alt="Carlos Alberto">
+      <span>{{ rep.CARGO }}</span>
+      <h5>{{ rep.VENDEDOR }}</h5>
+      <p>
+        <a target="_blank" href="tel:{{ rep.TEL }}">{{ rep.TEL }}</a>
+        <a target="_blank" href="mailto:{{ rep.EMAIL }}">{{ rep.EMAIL }}</a>
+      </p>
+    </div>
+  </ng-container>
+</div>
+<div id="box3" class="box shadow">
+  <div class="contato-title">
+    <h3>Contatos</h3>
+    <hr/>
+  </div>
+  <div class="contato">
+    whatsapp<br/>
+    <hr/>
+    21 296714 5980
+  </div>
+  <div class="contato">
+      21 2589 6961<br/>
+      21 2147 0228
+  </div>
+  <div class="contato">
+    skype<br/>
+    <hr/>
+    fala.haytek
+  </div>
+</div>

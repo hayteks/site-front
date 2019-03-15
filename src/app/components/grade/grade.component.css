@@ -1,0 +1,90 @@
+
+#lentes_filtros{
+    display: inline-block;
+    margin: 20px;
+    padding: 0px 30px;
+    background-color: #f8fafb;
+    height: 40px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    max-width: calc(100% - 320px);
+    white-space: nowrap;
+    overflow: auto;
+}
+
+#lentes_filtros a{
+    display: inline-block;
+    color:#999;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 39px;
+    margin: 0 10px;
+}
+
+#lentes_filtros a.active{
+    color: #6b93e8;
+    border-bottom:1px solid #6b93e8;
+}
+
+#lentes{
+    text-align:left;
+    margin: 20px 10px;
+}
+
+#lentes .lente_box{
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin: 15px 10px;
+    color: #fff;
+    padding: 0px;
+    vertical-align: top;
+}
+
+@media only screen and (max-width: 768px) {
+    #lentes_filtros {
+        display: none;
+    }
+    #lentes {
+        width: 100%;
+        margin: 0;
+        min-height: 400px;
+        position: relative;
+        text-align: center;
+    }
+    #lentes .lente_box {
+        display: inline-block;
+        width: 120px;
+        height: 120px;
+        margin: 20px 1px 1px;
+        color: #fff;
+        padding: 0px;
+        vertical-align: top;
+    }
+    .lente {
+        display: block;
+        border: 0;
+        width: 120px;
+        height: 120px;
+        color: #fff;
+        padding: 0;
+        border-radius: 5px;
+        text-decoration: none;
+        background-size: 100% 100%;
+        cursor: pointer;
+        margin: 0px;
+    }
+    /* #lentes{
+        width: 1000px;
+        margin: 0;
+        height: 180px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    } 
+    .content {
+        min-height: 250px;
+        overflow: hidden;
+    }*/
+}

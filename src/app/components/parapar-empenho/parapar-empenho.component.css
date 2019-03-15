@@ -1,0 +1,379 @@
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    background-color: #dce6ea !important;
+  }
+  
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    border-color: #fb8e9d;
+}
+
+::ng-deep input[type=checkbox] {
+    margin: 2px!important;
+}
+
+::ng-deep .mat-checkbox-checkmark-path{
+    stroke: #fb8e9d;
+}
+
+.mat-checkbox {
+    width: 100%;
+    display: block;
+    margin: 5px;
+}
+
+button{outline: 0;-moz-outline-style: none;}
+
+.content{padding:0;overflow:hidden;}
+#content_title{border-bottom:0px;height:65px;}
+#content_title h1{font-size:19px;top:15px;}
+#content_title h3{display:inline-block;font-size:14px;color:#545454;margin:40px 0;padding:0px 20px;}
+
+#det_parapars{float:right;width:80%;}
+#det_parapars p.len_material{float:left;width:23%;text-align:right;padding:0px 10px;font-size:75px;font-weight:700;color:#fff;font-family: Montserrat, sans-serif;line-height: 1.3;margin-bottom: 0;}
+#det_parapars p.len_descricao{font-size: 16px;color: #fff;padding-top: 20px;font-family: Montserrat, sans-serif;}
+#det_parapars p.len_descricao span{text-transform: lowercase;}
+
+#parapars{float:right;width:80%;min-height:500px;position:relative;}
+#parapars .add_pedido{float:right;height:100%;}
+#parapars .add_pedido button{font-size: 10px;height: 40px;padding: 0px 10px;width: 250px;margin-top:35px;}
+#parapars .add_pedido button span.valor{display:inline-block;width:40%;text-align:center;}
+#parapars .add_pedido button span.add{display:inline-block;width:55%;text-align:center;font-weight: 500;font-size: 11px;letter-spacing: 0;}
+
+#parapars .table th{border:0px;background-color:transparent;text-transform: uppercase;line-height: 40px;}
+#parapars .table tbody td{border:0px;background-color:transparent;line-height: 40px;}
+#parapars .table input, #parapars .table select{height: 40px;width:100px;background-color: #dce6ea;border: 1px solid #dce6ea;border-radius: 4px;padding: 0px 5px;text-align: center;}
+#parapars .table input.oss, #parapars .table select.oss{min-width: 250px;}
+#parapars p.valor{border-top:1px solid #dce6ea;border-bottom:1px solid #dce6ea;line-height: 30px;display: block;margin: 4px 0 0 0;}
+#parapars .btn_limpar{margin-top: 5px!important;}
+#parapars .btn_pedido{display: inline-block;margin-top: 5px!important;}
+#parapars .contrata_montagem{float:left;letter-spacing: 1px;font-size:10px;}
+#parapars .btn_comborda{width: 250px;height: 40px;background-color: transparent;margin-left: 10px;margin-top: 5px;font-size:10px;font-weight:800;cursor:pointer;}
+
+#parapars .table-responsive{padding-top: 50px;background-color: #f8fafb;}
+#parapars .table_branco{position:relative;background-color:#f8fafb!important;border:0px!important;height:20px;padding: 0;}
+#parapars .table_branco p{margin: 0 auto;display:block;background-color: #f8fafb;text-align: center;color: #545454;line-height: 40px;width: 100px;}
+#parapars .table_branco p.txt_vertical{margin: 50% auto;display:block;background-color: #f8fafb;text-align: center;color: #545454;line-height: 14px;width: 20px;}
+#parapars .table td, #parapars .table th{text-align: center;}
+#parapars .input{background-color: transparent;width: 100%;height: 100%;text-align: center;vertical-align: middle;padding: 0;margin: 0;border: 0;}
+
+#parapars .td_montagem{text-align:center;}
+#parapars .input_montagem{display:inline-block;margin:0 5px;}
+
+#lentes{float:left;width:20%;min-height:500px; position:relative;}
+#content_title{border-bottom:0px;height:80px;}
+#lentes .content_lens{overflow-y:scroll;height:550px;padding:40px 0;}
+#lentes .lente_box{display:inline-block;width:150px;height:150px;margin:15px 10px;padding:0px;vertical-align:top;}
+#lentes .lente_box .lente{border:0px;}
+#lentes .nuvem_topo{position:absolute;top:80px;left:0px;width:100%;height:80px;/* Permalink - use to edit and share this gradient:http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
+    background:-moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+    background:-webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background:linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */}
+#lentes .nuvem_rodape{position:absolute;bottom:0px;left:0px;width:100%;height:80px;/* Permalink - use to edit and share this gradient:http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
+    background:-moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background:-webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background:linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */}
+#parapars .header_empenho{text-align:center;}
+#parapars .header_empenho #nao_atendida{width: 80%;margin: 20px auto;background-color: #d54949;color: #ffffff;display: inline-block;border-radius:4px;}
+#parapars .header_empenho #nao_atendida .na_header{background-color: #c84646;min-height: 70px;padding-bottom:20px;}
+#parapars .header_empenho #nao_atendida .na_header span{display:block;width:50px;height:50px;border-radius: 50%;border:4px solid #ffffff;text-align: center;padding: 6px;float: left;margin: 10px 20px;}
+#parapars .header_empenho #nao_atendida .na_header p{width:200px;float: left;text-align: left;margin: 0;vertical-align: middle;padding: 0;line-height: 70px;color: #fff;font-size: 18px;}
+#parapars .header_empenho #nao_atendida .na_header div{height: 70px;font-size: 14px;padding: 13px;text-align: left;}
+#parapars .header_empenho #nao_atendida .na_content table{margin: 10px auto 30px;width: 80%;}
+#parapars .header_empenho #nao_atendida .na_content table thead{border-bottom: 1px solid #ffffff6b;color: #000;}
+
+
+
+#alerta{
+    display: block;
+}
+#alerta .alerta_fundo{
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.7;
+    z-index: 999;
+}
+#alerta .alerta_content{
+    position: fixed;
+    max-width: 600px;
+    width: 100%;
+    max-height: 350px;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius:10px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#alerta .alerta_fechar{
+    position:absolute;
+    width:20px;
+    height:20px;
+    top: 10px;
+    right:10px;
+    cursor:pointer;
+}
+
+#alerta .lente_escolhida{
+    float:left;
+    width:30%;
+    height:100%;
+}
+#alerta .lente_texto{
+    height:100%;
+    width:100%;
+    /* padding: 35px 0 0 20%;  */
+}
+
+#alerta .lente_texto p{
+    display: block;
+    width:100%;
+    color:#ffffff;
+    padding-left: 20px;
+}
+
+#alerta .lente_texto span{
+    display: block;
+    font-size: 16px;
+    color: #ffffff75;
+    margin-bottom: 10px;
+    width: 100%;
+    border-bottom: 1px solid #80b9e1;
+    padding: 25px 0px 15px;;
+    text-align: center;
+    font-weight: 700;
+}
+#alerta .lente_texto .l_espessura{
+    width: 100%;
+    font-size: 62px;
+    line-height: 70px;
+    text-align: left;
+    margin: 0;
+}
+#alerta .lente_texto .l_tipo{
+    width:100%;
+    font-size:16px;
+    margin: 0px;
+    text-align: left;
+    text-transform: uppercase;
+}
+#alerta .lente_texto .l_descricao{
+    width:100%;
+    font-size:14px;
+    margin:0px;
+    text-align: left;
+    text-transform: lowercase;
+}
+
+#alerta .lente_texto .ldc_left.first{
+    margin-top:20px;
+    border-top: 1px solid #ffffff69;
+}
+#alerta .lente_texto .ldc_left{
+    float: left;
+    border-bottom: 1px solid #ffffff69;
+    margin: 0 20px;
+    width: calc(100% - 40px);
+    padding: 0px;
+    line-height: 40px;
+}
+#alerta .lente_texto .ldc_right{
+    float: right;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: #fff;
+}
+
+#alerta .carrinho_detalhes_compra {
+    width:80%;
+    margin: 30px auto;
+}
+
+#alerta .carrinho_detalhes_compra .ldc_left.first{
+    margin-top:20px;
+    border-top: 1px solid #dce6ea;
+}
+#alerta .carrinho_detalhes_compra .ldc_left{
+    float: left;
+    border-bottom: 1px solid #dce6ea;
+    margin: 0 20px;
+    width: calc(100% - 40px);
+    padding: 0px;
+    line-height: 40px;
+    color: #aab0b3;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
+}
+#alerta .carrinho_detalhes_compra .ldc_right{
+    float: right;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-weight: 700;
+    color: #535353;
+    font-size: 18px;
+}
+
+#alerta .txt_color {
+    display: inline-block;
+    width: 180px;
+    padding: 0px;
+    font-size: 12px;
+    margin: 0;
+    line-height: 40px;
+    height: 40px;
+    cursor:pointer;
+}
+#alerta .btn_pedido {
+    display: inline-block;
+    width: 180px;
+    padding: 0;
+    font-size: 12px;
+    line-height: 40px;
+    height: 40px;
+    margin: 80px 5px 0px;
+    cursor:pointer;
+}
+
+#alerta .txt_color{
+    background: -webkit-linear-gradient(#ff828e, #a0a7ee 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#alerta .lente_acao{
+    display: inline-block;
+    width: 70%;
+    height: 100%;
+    text-align: center;
+}
+#alerta .lente_acao h3{
+    width: 200px;
+    line-height: 65px;
+    font-size: 30px;
+    color: #2a3a83;
+    text-align: center;
+    margin: 0px auto;
+    border-bottom: 1px solid #4f94e3;
+}
+#alerta .lente_acao a{
+    display: block;
+    width: 60%;
+    max-width: 220px;
+    margin: 5px auto;
+    text-align: left;
+    text-decoration: none;
+}
+
+
+#alerta .lente_acao a p{
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+    #lentes {
+        width: 100%;
+        min-height: auto;
+        height: 260px;
+    }
+    #lentes .content_lens {
+        padding: 0;
+    }
+    #lentes .content_lens{
+        width: auto;
+        margin: 0;
+        height: 180px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .content {
+        min-height: 250px;
+        overflow: hidden;
+    }
+    #lentes .nuvem_topo, #lentes .nuvem_rodape{
+        display:none;
+    }
+    #det_parapars {
+        width: 100%;
+    }
+    #det_parapars p.len_material {
+        width: 30%;
+    }
+    #parapars {
+        width: 100%;
+    }
+    #parapars .header_empenho .total_lentes, 
+    #parapars .header_empenho .add_pedido,
+    #parapars .header_empenho .forma_pgto{
+        width:100%!important;
+        text-align:left;
+        padding-left:20px;
+    }
+    #parapars .header_empenho .total_lentes p:first-of-type{
+        width:60%!important;
+    }
+    #alerta .lente_acao, #alerta .lente_escolhida{
+        width:50%;
+    }
+    #alerta .carrinho_detalhes_compra .ldc_left{
+        line-height: 25px;
+    }
+    #alerta .carrinho_detalhes_compra{
+        margin: 10px auto;
+    }
+    #parapars .header_empenho #nao_atendida .na_header div{
+        font-size:10px;
+    }
+    #parapars .header_empenho #nao_atendida .na_header p{
+        width: 100%;
+        text-align: center;
+    }
+    #parapars .header_empenho #nao_atendida .na_content table{
+        font-size:10px;
+    }
+    #parapars .table input.oss, #parapars .table select.oss{
+        min-width: 100px;
+    }
+    #parapars p.valor{
+        font-size:10px;
+    }
+    #parapars .add_pedido{
+        position: relative;
+        text-align: center;
+    }
+    #parapars .btn_comborda{
+        display:inline-block;
+    }
+    #parapars .contrata_montagem{
+        width: 100%;
+        position: relative;
+        text-align: center;
+    }
+    #parapars .td_montagem{
+        white-space: nowrap;
+    }
+    #parapars .header_empenho #nao_atendida .na_header div{
+        font-size:10px;
+    }
+    #parapars .header_empenho #nao_atendida .na_header p{
+        width: 100%;
+        text-align: center;
+    }
+    #parapars .header_empenho #nao_atendida .na_content table{
+        font-size:10px;
+    }
+}

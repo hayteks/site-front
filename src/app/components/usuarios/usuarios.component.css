@@ -1,0 +1,261 @@
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    background-color: #dce6ea !important;
+  }
+  
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    border-color: #fb8e9d;
+}
+
+::ng-deep input[type=checkbox] {
+    margin: 2px!important;
+}
+
+::ng-deep .mat-checkbox-checkmark-path{
+    stroke: #fb8e9d;
+}
+
+.mat-checkbox {
+    width: 100%;
+    display: block;
+    margin: 5px;
+}
+
+.usuarios_box{
+    width:calc(100% - 40px);
+    margin:20px;
+    text-align:left;
+}
+
+.usuario_box{
+    display: inline-block;
+    /* width: 450px; */
+    height: 200px;
+    border: 1px solid #dce6ea;
+    border-radius: 10px;
+    background-color: #f8fafb;
+    margin: 2% 2% 2% 0;
+    text-align: left;
+    width: 46%;
+    vertical-align: top;
+}
+
+.usuario_box .ico_usuario{
+    float: left;
+    width: 80px;
+    height: 80px;
+    background-color: #a0a7ed;
+    border-radius: 50%;
+    margin: 20px 10px 0 15px;
+}
+.usuario_box .usuario_text{
+    float: left;
+    margin: 20px 10px 0 10px;
+    text-align: left;
+    width: calc(100% - 130px);
+}
+.usuario_box .usuario_text h3{
+    font-size: 20px;
+    color: #535353;
+    text-align: left;
+    margin: 0px;
+}
+.usuario_box .usuario_text span{
+    display: block;
+    font-size:13px;
+    color: #535353;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.usuario_box .usuario_text p{
+    font-size:16px;
+    color: #535353;
+    text-align: left;
+}
+
+.usuario_box .usuario_btns{
+    width: 100%;
+    text-align: center;
+}
+.usuario_box hr{
+    margin: 10px auto 0;
+    width: 80%;
+}
+.usuario_box .usuario_btns button{
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+    margin: 22px 10px 0;
+}
+.usuario_box .usuario_btns button span{
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+}
+
+#content_title .btn_pedido {
+    position: absolute;
+    width: 160px;
+    height: 30px;
+    right: 0px;
+    top: 10px;
+    font-size: 12px;
+    padding: 0;
+}
+#content_title {
+    position:relative;
+}
+
+
+#background_editar{
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.7;
+}
+#editar{
+    /* display:none; */
+    position: fixed;
+    padding:20px;
+    max-width: 1024px;
+    width: 100%;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius:10px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    z-index:1002;
+}
+
+#editar h1{
+    width:100%;
+    height:70px;
+    line-height:70px;
+    text-align: center;
+    color: #2a3a83;
+    font-size:30px;
+}
+
+#editar #inputs{
+    margin:0 auto;
+    position:relative;
+    text-align: center;
+}
+#editar #inputs input[type="text"]{
+    display: inline-block;
+    width:300px;
+    height:70px;
+    line-height:70px;
+    background-color:#dce6ea;
+    color:#545454;
+    border-radius:10px;
+    border:0px;
+    margin: 5px;
+    text-align: center;
+}
+#editar .btn_comborda{
+    display:inline-block;
+    width:120px;
+    height:45px;
+    margin-top:40px;
+    margin-right:10%;
+    line-height:45px;
+}
+#editar .btn_pedido{
+    float:right;
+    padding: 0 20px;
+    font-size: 12px;
+    margin: 10px;
+    height: auto;
+    width: 150px;
+    line-height: 45px;
+}
+
+#editar .btn_bordacolor{
+    float:right;
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+}
+#editar .txt_color{
+    font-size: 12px;
+    padding: 0 20px;
+}
+
+#editar .grupo_permissoes{
+    display: inline-block;
+    width: 300px;
+    border: 1px solid #e0e9ed;
+    border-radius: 4px;
+    vertical-align: top;
+    margin: 50px 5px 20px;
+    text-align: left;
+    position:relative;
+    font-size:14px;
+    color: #6d6d6d;
+    font-weight: 700;
+}
+
+#editar h5 {
+    position: absolute;
+    top: -30px;
+}
+
+#editar .grupo_email{
+    display: inline-block;
+    width: 600px;
+    border: 1px solid #e0e9ed;
+    border-radius: 4px;
+    vertical-align: top;
+    margin: 50px 5px 20px;
+    position:relative;
+    font-size:14px;
+    color: #6d6d6d;
+    font-weight: 700;
+}
+#editar .grupo_email1{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: left;
+}
+#editar .grupo_email2{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: left;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .usuario_box .ico_usuario{
+        display:none;
+    }
+    .usuario_box .usuario_text {
+        margin: 10px 20px;
+        width: calc(100% - 40px);
+    }
+    .usuario_box .usuario_btns {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        float: right;
+    }
+    .usuario_box .usuario_btns button {
+        float: none!important;
+    }
+    .usuario_box {
+        width: 100%;
+    }
+
+    #editar .grupo_email, #editar .grupo_email1, #editar .grupo_email2{
+        width:100%;
+    }
+}

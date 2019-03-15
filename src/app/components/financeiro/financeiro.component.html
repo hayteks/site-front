@@ -1,0 +1,118 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Histórico Financeiro</h1>
+    <div class="filtro_pedidos_todos">
+      <input type="checkbox" value="pedido_todos" [(ngModel)]="this.cod_master" /> <span class="label-text">EXIBIR TODAS AS EMPRESAS</span>
+    </div>
+  </div>
+  <div id="content_meuspedido">
+    <div class="deate">
+      <div class="box">
+        <label for="de">DE:</label>
+        <input type="date" name="de" [(ngModel)]="this.data_ini" />
+      </div>
+      <div class="box">
+        <label for="ate">ATÉ:</label>
+        <input type="date" name="ate" [(ngModel)]="this.data_fim" />
+      </div>
+      <div class="box">
+        <button (click)="filtrarFinanceiro()">FILTRAR</button>
+      </div>
+    </div>
+    <div class="filtro_pedidos">
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="A" /> <span class="label-text">Aberto</span>
+      </div>
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="T" /> <span class="label-text">Todos</span>
+      </div>
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="P" /> <span class="label-text">Pago</span>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div id="pedidos">
+    <div class="table-responsive">
+      <table class="table table-alternada table-condensed table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Vencimento</th>
+              <th scope="col">Status</th>
+              <th scope="col">No do documento</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Parcela</th>
+              <th scope="col">Emissão</th>
+              <th scope="col">Boleto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let f of this.globals.logged.Financeiros">
+              <tr (click)="orderDetails(f)" onClick="
+              if(this.nextSibling.style.display == 'contents'){
+                document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+              }else{
+                document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+                this.nextSibling.style.display = 'contents';
+              }">
+                <td>{{ f.VENCIMENTO + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ f._STATUS }}</td>
+                <td>{{ f.NUMERO }}</td>
+                <td>{{ f.VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                <td>{{ f.NDEN }}</td>
+                <td>{{ f.EMISSAO + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+                <td><a class="link" target="_blank" href="{{ f.LINK }}"><i class="ico_pdf"></i></a></td>
+              </tr>
+              <tr class="detalhes">
+                <td colspan="11">
+                  <div class="detalhes_content">
+                      <div *ngIf="f.LOADING?.toString() !== '100'" class="progress">
+                        <div class="progress-bar" role="progressbar" [style.width]="f.LOADING + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ f.LOADING }}%</div>
+                      </div>
+                      <div *ngIf="f.Detalhes?.length > 0" class="detalhes_caixas caixa_dir">
+                        <table class="table table-interna table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col" colspan="8">INFORMAÇÕES DE DANFES</th>
+                            </tr>
+                            <tr>
+                              <th scope="col">Pedido Haytek</th>
+                              <th scope="col">Pedido Cliente</th>
+                              <th scope="col">Data do Pedido</th>
+                              <th scope="col">Valor</th>
+                              <th scope="col">Transportadora</th>
+                              <th scope="col">NFe</th>
+                              <th scope="col">DANFE</th>
+                              <th scope="col">XML</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let det of f.Detalhes">
+                              <td>{{ det.Pedhtk }}</td>
+                              <td>{{ det.PedCli }}</td>
+                              <td>{{ det.Data_pedido + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+                              <td>{{ det.Valornfe | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                              <td>{{ det.TRANSPORTADORA }}</td>
+                              <td>{{ det.Nfe }}</td>
+                              <td><a href="{{ det.LINK_DANFE }}" target="_blank"><i class="ico_pdf"></i></a></td>
+                              <td><a href="{{ det.LINK_XML }}" target="_blank"><i class="ico_xml"></i></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="table_dados">
+    <div class="pagina_atual">página {{ this.pagina }} de {{ this.globals.varsIO.financeiroPagina }}</div>
+    <div class="paginacao">
+      <a href="javascript:void(0);" (click)="paginacao(this.pagina - 1)"><span>«</span>página anterior</a>
+      <a href="javascript:void(0);" (click)="paginacao(this.pagina + 1)">próxima página<span>»</span></a>
+    </div>
+  </div>
+</div>

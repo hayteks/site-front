@@ -1,0 +1,117 @@
+<div id="back_menu_mob" [className]="menuMob ? 'menuMobOpen' : ''" (click)="toggleMenu()"></div>
+<div id="menu_vert" [className]="menuMob ? 'menuMobOpen' : 'menuMobClose'">
+  <div class="logo logo-admin">
+    <a routerLink="/admin/dashboard">
+      <img src="assets/images/logo.png" alt="Haytek" />
+    </a>
+  </div>
+  <div class="menu_content">
+    <p class="menu_boasvindas">
+      Bem vindo,<br/>
+      <span>{{ this.globals?.logged.User.NOME }}</span>
+    </p>
+    <p class="menu_cnpj" *ngIf="this.globals.logged.Company_active?.A1_CGC.trim().length > 11">{{ this.globals.logged.Company_active?.A1_CGC | mask: '99.999.999/9999-99' }}</p>
+    <p class="menu_cnpj" *ngIf="this.globals.logged.Company_active?.A1_CGC.trim().length == 11">{{ this.globals.logged.Company_active?.A1_CGC | mask: '999.999.999-99' }}</p>
+    <a *ngIf="this.globals.logged.Companies.length > 1" class="menu_trocarcnpj" href="javascript:void(0);" (click)="trocarEmpresa()">
+        TROCAR EMPRESA
+    </a>
+    <nav>
+      NAVEGAÇÃO
+      <a *ngIf="this.globals.logged.User._inclPedido" (click)="closeMenu()" routerLink="/admin/dashboard"><i class="ico_fazerpedido"></i> FAZER PEDIDO</a>
+      <a (click)="closeMenu()" routerLink="/admin/meuspedidos"><i class="ico_meuspedidos"></i> MEUS PEDIDOS</a>
+      <a *ngIf="this.globals.logged.User._visuCobranca" (click)="closeMenu()" routerLink="/admin/financeiro"><i class="ico_financeiro"></i> FINANCEIRO</a>
+      
+      <a (click)="closeMenu()" routerLink="/admin/downloads"><i class="ico_downloads"></i> DOWNLOADS</a>
+    </nav>
+    <nav>
+      DADOS PESSOAIS
+      <a *ngIf="!this.globals.logged.User._IDUSUARIOMASTER" (click)="closeMenu()" routerLink="/admin/usuarios"><i class="ico_usuarios"></i> USUÁRIOS</a>
+      <a *ngIf="this.globals.logged.User._inclNovoEndereco" (click)="closeMenu()" routerLink="/admin/enderecos"><i class="ico_enderecos"></i> ENDEREÇOS</a>
+      <a href="javascript:void(0);" (click)="alterarSenha()"><i class="ico_alterarsenha"></i> ALTERAR SENHA</a>
+      <a href=""><i class="ico_sair"></i> SAIR</a>
+    </nav>
+  </div>
+  <div style="text-align:center">
+  </div>
+</div>
+<div id="menu_hori">
+  <span (click)="toggleMenu()" class="mobileMenu"></span>
+  <a routerLink="/admin/duvidasecontato" class="box duvidas">
+    <p>DÚVIDAS<br/>E CONTATOS</p>
+  </a>
+  <a *ngIf="this.globals.logged.Pedido_total_lentes === 0" href="javascript:void(0);" class="box carrinho">
+    <i class="ico_carrinho"></i>
+  </a>
+  <a *ngIf="this.globals.logged.Pedido_total_lentes > 0" routerLink="/admin/carrinho" class="box carrinho">
+    <i class="ico_carrinho"></i>
+    <span>{{ this.globals.logged.Pedido_total_lentes }}</span>
+  </a>
+  <a *ngIf="this.globals.logged.Companies.length > 1" href="javascript:void(0);" (click)="trocarEmpresa()" class="box shadow empresa">
+    <p>
+      <!-- Empresa X Ótica exemplo LTDA -->
+      {{ this.globals.logged.Company_active?.A1_NOME }}
+    </p>
+    <span>TROCAR</span>
+  </a>
+  <span *ngIf="this.globals.logged.Companies.length === 1" class="box shadow empresa">
+    <p>
+      <!-- Empresa X Ótica exemplo LTDA -->
+      {{ this.globals.logged.Company_active?.A1_NOME }}
+    </p>
+  </span>
+</div>
+<div id="dashboard">
+  <router-outlet></router-outlet>
+</div>
+
+<div id="alertas">
+
+<div *ngIf="this.globals.varsIO.selecaoEmpresa" id="overlay"></div>
+
+<div *ngIf="this.globals.varsIO.selecaoEmpresa" id="seleciona_empresa">
+    <h1>Selecione a sua empresa</h1>
+    <div id="empresas">
+        <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">CÓDIGO</th>
+                <th scope="col">RAZÃO SOCIAL</th>
+                <th scope="col">NOME FANTASIA</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comp of this.globals.logged.Companies; index as i;">
+                    <td>{{ comp.A1_COD }}</td>
+                    <td><b>{{ comp.A1_NREDUZ }}</b></td>
+                    <td>{{ comp.A1_NOME }}</td>
+                    <td *ngIf="comp.A1_CGC.trim().length > 11">{{ comp.A1_CGC | mask: '99.999.999/9999-99' }}</td>
+                    <td *ngIf="comp.A1_CGC.trim().length == 11">{{ comp.A1_CGC | mask: '999.999.999-99' }}</td>
+                    <td>
+                        <button (click)="seleciona_empresa(i)" class="btn_pedido">
+                            SELECIONAR
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>     
+</div>
+
+<div *ngIf="this.globals.varsIO.altSenhaIO" id="overlay"></div>
+<div *ngIf="this.globals.varsIO.altSenhaIO" id="alterar_senha">
+    <h1>Cadastrar nova senha</h1>
+    <div id="senhas">
+        <input type="password" [(ngModel)]="_passAnt" placeholder="senha atual" />
+        <input type="password" [(ngModel)]="_passNew" placeholder="nova senha" />
+        <input type="password" [(ngModel)]="_passCnf" placeholder="confirmar nova senha" />
+        <div clas="clear"></div>
+        <button (click)="alterarSenha()" class="btn_comborda">CANCELAR</button>
+        <button (click)="salvarSenha()" class="btn_pedido">CADASTRAR</button>
+        <p *ngIf="this.globals.varsIO._passError" class="txt_color">{{ this.globals.varsIO._passErrorTXT }}</p>
+    </div>
+        
+</div>
+
+</div>

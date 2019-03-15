@@ -1,0 +1,323 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Frete e pagamento</h1>
+    <p>Finalizar pedido<span></span></p>
+  </div>
+  <div *ngIf="this.globals.varsIO.loading_frete < 100" class="progress">
+    <div class="progress-bar" role="progressbar" [style.width]="this.globals.varsIO.loading_frete + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ this.globals.varsIO.loading_frete }}%</div>
+  </div>
+  <div class="header">
+    <table class="table">
+        <tr>
+          <th>Número do<br/>pedido</th>
+          <th>Total de<br/>peças</th>
+          <th>Valor total<br/>das peças</th>
+          <th>Valor total<br/>do frete</th>
+          <th>Peso<br/>Bruto</th>
+          <th>Valor total<br/>do pedido</th>
+          <th rowspan="2" class="row_button">
+            <button (click)="goCheckout(codpag)" class="btn_pedido">FINALIZAR PEDIDO</button>
+          </th>
+        </tr>
+        <tr>
+          <td>{{ this.globals.logged.Pedido_num }}</td>
+          <td>{{ this.globals.logged.Pedido_total_lentes }}</td>
+          <td>{{ this.globals.logged.Pedido_valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+          <td>{{ this.globals.logged.Pedido_valor_frete | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+          <td>{{ this.globals.logged.Pedido_peso_bruto }} Kg</td>
+          <td>{{ this.globals.logged.Pedido_valor_total_lentes + this.globals.logged.Pedido_valor_frete | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+        </tr>
+    </table>
+    <div class="mob_button">
+      <button (click)="goCheckout(codpag)" class="btn_pedido">FINALIZAR PEDIDO</button>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="content_esq">
+    <div id="ticket">
+        <p>CUPOM DE DESCONTO</p>
+        <input type="text" [(ngModel)]="this.globals.logged.Pedido_Final.TICKET" />
+    </div>
+    <div class="lista">
+      <div class="table-responsive">
+        <table class="table table-hover" #codpag>
+          <thead>
+              <tr>
+                <th scope="col" class="padding20 table_title">Transportadora</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Previsão de entrega</th>
+                <th scope="col">Pontualidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let frete of this.globals.logged.Pedido_frete; first as isFirst;">
+                <tr [class]="isFirst ? 'first_row':''" (click)="selectCodTrans(frete)">
+                  <td class="first"  [class]="frete.ZHL_VERSAO.trim() !== '' ? 'otimiza':''">
+                    <input id="cod_transp_{{frete.ZHL_CODTRA}}" [value]='frete.ZHL_CODTRA' type="radio" name="cod_transp" [(ngModel)]="this.globals.logged.Pedido_Final.COD_TRANSPORTADORA" />
+                    {{ frete.ZHL_NOME }}
+                  </td>
+                  <td>
+                    {{ frete.ZHL_VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                  </td>
+                  <td>
+                    {{ frete.ZHL_DATENT + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ frete.PERCentual }}%
+                  </td>
+                </tr>
+              </ng-container>
+                <tr>
+                  <td class="first">
+                    <input (click)="reselectOutrasTransp()" id="cod_transp_outras" value="0" [(ngModel)]="this.globals.logged.Pedido_Final.COD_TRANSPORTADORA" type="radio" name="cod_transp" />
+                    <label for="cod_transp">Outras transportadoras:</label>
+                  </td>
+                  <td colspan="3">
+                    <select (change)="selectOutrasTransp($event.target.value)" [(ngModel)]="this.outrasTransp">
+                      <option *ngFor="let outras of this.globals.logged.Pedido_transps" [value]="outras.A4_COD">{{ outras.A4_NOME }}</option>
+                    </select>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="sugere" *ngIf="this.globals.varsIO.SugestaoOtimizacao?.SUGESTAO > 0">
+      <div class="barra">
+        <p>Economize no frete </p>
+        <div class="position_progress">
+          <div class="progress frete">
+            <div class="progress-bar frete" role="progressbar" [style.width]="this.globals.varsIO.SugestaoOtimizacao?.PREENCHIDO + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="this.globals.varsIO.SugestaoOtimizacao?.TOTAL"></div>
+          </div>
+        </div>
+      </div>
+      <div class="texto">Na sua caixa ainda cabem <strong>{{ this.globals.varsIO.SugestaoOtimizacao?.SUGESTAO }} lentes</strong> sem aumentar o valor do frete!</div>
+      <button (click)="sugereLentes()">ESCOLHER LENTES</button>
+    </div>
+
+    <div id="ticket">
+        <p>Seu N° de Pedido</p>
+        <input type="text" id="cli_pedido" name="cli_pedido" [(ngModel)]="this.globals.logged.Pedido_Final.CLI_PEDIDO" maxlength="20" />
+    </div>
+
+    <div class="lista">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+              <tr>
+                <th scope="col" class="padding20 table_title">Condição</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Valor<br/>da parcela</th>
+                <th scope="col">Valor<br/>do pedido</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let pgto of this.globals.logged.FormasPGTO; first as isFirst;">
+                <tr (click)="selectFormaPGTO(pgto)">
+                  <td class="first">
+                      <input id="cond_pag_{{pgto.CODIGO}}" [value]='pgto.CODIGO' type="radio" name="cod_pag" [(ngModel)]="this.globals.logged.Pedido_Final.COD_FORMAPGTO" />
+                    {{ pgto.DESCRI }}
+                  </td>
+                  <td>
+                    {{ pgto.E4_XPARC }}
+                  </td>
+                  <td>
+                    {{ pgto.PARCELA | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                  </td>
+                  <td>
+                    {{ pgto.VALORTOT | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="content_dir">
+    <div class="resumo disabled_back">
+      <h3 class="disabled_content"><i class="ico_localizacao"></i>Endereço de entrega</h3>
+      <p class="disabled_content">
+          {{ this.globals.varsIO.EnderecoIO?.Z3_ENDEREC }},
+          {{ this.globals.varsIO.EnderecoIO?.Z3_COMPLEM }} - 
+          {{ this.globals.varsIO.EnderecoIO?.Z3_BAIRRO }}
+          <br/>
+          CEP {{ this.globals.varsIO.EnderecoIO?.Z3_CEP }} {{ this.globals.varsIO.EnderecoIO?.Z3_MUN }}, {{ this.globals.varsIO.EnderecoIO?.Z3_UF }}</p>
+      <button *ngIf="this.globals.logged.User._inclNovoEndereco" (click)="this.endereco_show = !this.endereco_show" class="btn_bordacolor"><span class="txt_color">EDITAR</span></button>
+    </div>
+    <div class="resumo disabled_back">
+        <div class="table-responsive disabled_back">
+        <!-- PEDIDO GRADE -->
+        <table *ngIf="this.globals.logged.Pedido_pode_grade" class="table table-condensed table-hover disabled_content">
+          <thead>
+              <tr>
+                <th scope="col" class="padding20">Produto</th>
+                <th scope="col" class="text-center">Qtd</th>
+                <th scope="col" class="text-center">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let pedGrade of this.globals.logged.Pedido_grade">
+                <tr>
+                  <td class="padding15 disabled_content">
+                    <div alt="pedGrade.Lente.LENS_NAME" class="lente_p" [style.backgroundColor]="'#'+ pedGrade.Lente.CORDOSITE">
+                        
+                    </div><strong>{{ pedGrade.Lente.MATERIAL }}</strong><br/>
+                    <div class="texto ">
+                      {{ pedGrade.Lente.CARAC_PRINCIPAL }}
+                      {{ pedGrade.Lente.CARAC_SEGUNDARIA }}
+                      {{ pedGrade.Lente.CARAC_TERCIARIA }}
+                      {{ pedGrade.Lente.CARAC_QUARTENARIA }}
+                      {{ pedGrade.Lente.CARAC_QUINTENARIA }}
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    {{ pedGrade.QUANTIDADE }}
+                  </td>
+                  <td class="text-center">
+                    <strong>{{ pedGrade.VALORTOTAL | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+        </table>
+        <!-- PEDIDO PAP -->
+        <table *ngIf="this.globals.logged.Pedido_pode_pap" class="table table-condensed disabled_content">
+  
+          <ng-container *ngFor="let pedPap of this.globals.logged.Pedido_pap; first as isFirst;">
+            <thead *ngIf="isFirst">
+              <tr>
+                <th scope="col" class="padding20">Lente/OS</th>
+                <th scope="col">Item</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="padding15" rowspan="2">
+                  <div alt="pedPap.Lente.LENS_NAME" class="lente_p" [style.backgroundColor]="pedPap.Lente.CORDOSITE">
+                      
+                  </div>
+                  <div class="texto">
+                    <strong>{{ pedPap.OSCLI }}</strong><br/>
+                    {{ pedPap.NOME }}
+                  </div>
+                </td>
+                <td>
+                  <strong>O.D.</strong>
+                </td>
+                <td rowspan="2" class="text-center">
+                    Valor: <strong>{{ pedPap.VLRLENTES | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                    <ng-container *ngIf="pedPap.MONTAGEM == 'E'">
+                        | Montagem: <strong>{{ pedPap.VLRSERVICO | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                    </ng-container>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>O.E.</strong>
+                </td>
+              </tr>
+            </tbody>
+          </ng-container>
+        </table>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div *ngIf="this.globals.varsIO.pedidoFechado" id="alerta">
+  <div class="alerta_fundo"></div>
+  <div class="alerta_content">
+    <div class="alerta_fechar ico_fechar" (click)="fechar()" ></div>
+    <div class="header_pedido text_valign">
+        <h3>PEDIDO <span>{{ this.globals.logged.Pedido_num }}</span></h3>
+    </div>
+    <div class="carrinho_detalhes_compra">
+      <p>REALIZADO COM SUCESSO.</p>
+      <div class="clear"></div>
+      <button (click)="fechar()" class="btn_comborda txt_color">
+          INÍCIO
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="this.sugere_show" id="background_sugere"></div>
+<div *ngIf="this.sugere_show" id="sugere_lentes">
+    <div id="lentes_sugere">
+      <ng-container *ngFor="let len_sug of this.lentesSugeridas">
+        <div class="caixa_lente_sug">
+          <div class="cls_header" [style.backgroundColor]="'#'+ len_sug.cor">
+            <p class="cls_material">{{ len_sug.material }}</p>
+            <p class="cls_texto">
+                {{ len_sug.linha1 }}<br/>
+                <span>{{ len_sug.linha2 }}<br/>
+                {{ len_sug.linha3 }}<br/>
+                {{ len_sug.linha4 }}<br/>
+                {{ len_sug.linha5 }}</span>
+            </p>
+            <div class="clear"></div>
+            <p class="cls_valor">{{ len_sug.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</p>
+          </div>
+          <div class="cls_body">
+            <table class="table">
+                <tr>
+                  <th>Grau</th>
+                  <th>Item</th>
+                </tr>
+                <ng-container *ngFor="let prod_sug of len_sug.produtos; index as i;">
+                  <tr>
+                    <td>{{ prod_sug.nome }}</td>
+                    <td>
+                      <button (click)="qtdSugere('-', prod_sug, len_sug.valor)">-</button>
+                      <input type="number" [(ngModel)]="prod_sug.quantidade" readonly />
+                      <button (click)="qtdSugere('+', prod_sug, len_sug.valor)">+</button>
+                    </td>
+                  </tr>
+                </ng-container>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div id="resumo">
+      <h3>Você ainda pode escolher {{ this.globals.varsIO.SugestaoOtimizacao.SUGESTAO + (this.globals.varsIO.SugestaoOtimizacao.SUGESTAO > 1 ? ' Lentes' : ' Lente' ) }}!</h3>
+      <p class="qtd_produtos">QUANTIDADE DE PRODUTOS: <span>{{ this.globals.logged.Pedido_total_lentes }}</span></p>
+      <p class="val_ante">VALOR ANTERIOR: <span>{{ this.valor_anterior | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+      <p class="val_total">VALOR TOTAL: <span>{{ this.globals.logged.Pedido_valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+      <p>
+        <button (click)="addSugere()" class="btn_pedido">ADICIONAR LENTES</button>
+      </p>
+      <p>
+          <button (click)="this.sugere_show = !this.sugere_show" class="btn_bordacolor"><span class="txt_color">CANCELAR</span></button>
+      </p>
+    </div>
+</div>
+
+<div *ngIf="this.endereco_show" id="background_editar"></div>
+<div *ngIf="this.endereco_show" id="editar">
+    <h1>Editar endereço</h1>
+    <div id="inputs">
+        <input type="text" (keydown)="maxCEP($event);" (keyup)="buscaCEP();" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_CEP" placeholder="CEP" />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_ENDEREC" placeholder="Endereço" disabled />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_COMPLEM" placeholder="Complemento" />
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_BAIRRO" placeholder="Bairro" disabled />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_MUN" placeholder="Município" disabled />
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_UF" placeholder="UF" disabled />
+
+        <div clas="clear"></div>
+        <button (click)="this.endereco_show = !this.endereco_show" class="btn_bordacolor float-left"><span class="txt_color">CANCELAR</span></button>
+        <button (click)="salvarEnd()" class="btn_pedido float-right">SALVAR</button>
+    </div>
+        
+</div>

@@ -1,0 +1,66 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Usuários</h1>
+    <button (click)="cadastrar()" class="btn_pedido">NOVO USUÁRIO</button>
+  </div>
+  <div class="clear"></div>
+  <div class="table-responsive">
+    <div class="usuarios_box">
+      <div class="usuario_box" *ngFor="let usu of this.globals.logged.Usuarios">
+        <i class="ico_usuario"></i>
+        <div class="usuario_text">
+          <h3>{{ usu.NOME }}</h3>
+          <span>{{ usu.SETOR }}</span>
+          <p>
+              {{ usu.EMAIL }}
+          </p>
+        </div>
+        <div class="clear"></div>
+        <hr/>
+        <div class="usuario_btns">
+          <button (click)="alterar(usu)" class="btn_bordacolor"><span class="txt_color">ALTERAR</span></button>
+          <button (click)="excluir(usu)" class="btn_bordacolor" *ngIf="!usu.GERENCIAL"><span class="txt_color">EXCLUIR</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.usuario_show" id="background_editar"></div>
+<div *ngIf="this.usuario_show" id="editar">
+    <h1>{{ this.globals.varsIO.UsuarioIO?.ID > 0 ? 'Editar' : 'Cadastrar' }} usuário</h1>
+    <div id="inputs">
+        <input type="text" [(ngModel)]="this.globals.varsIO.UsuarioIO.NOME" placeholder="Nome" />
+        <input type="text" [(ngModel)]="this.globals.varsIO.UsuarioIO.EMAIL" placeholder="Email" />
+        <input type="text" [(ngModel)]="this.globals.varsIO.UsuarioIO.SETOR" placeholder="Setor" />
+        <div clas="clear"></div>
+        <div class="grupo_permissoes">
+          <h5>Permissões</h5>
+          <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._inclPedido" name="ckb_01" >Incluir pedidos</mat-checkbox>
+          <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._visuCobranca" name="ckb_02" >Visualizar cobranças</mat-checkbox>
+          <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._inclNovoEndereco" name="ckb_03" >Incluir novos endereços</mat-checkbox>
+          <!-- <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._VISUPRECO" name="ckb_04" >Visualizar preços</mat-checkbox>
+          <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._INCLNOVATRANSPORTADORA" name="ckb_05" >Incluir novas trasnportadoras</mat-checkbox> -->
+        </div>
+        <div class="grupo_email">
+          <h5>Email</h5>
+          <div class="grupo_email1">
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recEmailPedido" name="ckb_06" >Receber email do pedido</mat-checkbox>
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recebEmailDanf" name="ckb_07" >Receber email com danfe</mat-checkbox>
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recEmailembarque" name="ckb_08" >Receber email  aviso de embarque</mat-checkbox>
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recebEmailBoleto" name="ckb_09" >Receber email com boleto</mat-checkbox>
+            </div>
+          <div class="grupo_email2">
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recEmailtresdias" name="ckb_10" >Receber email aviso de 3 dias para o vencimento</mat-checkbox>
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recEmailatraso" name="ckb_11" >Receber email aviso de 4 dias vencido</mat-checkbox>
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.UsuarioIO._recEmailnegativar" name="ckb_12" >Receber email aviso de negativação</mat-checkbox>
+          </div>
+        </div>
+
+        <div clas="clear"></div>
+        <button (click)="salvar()" class="btn_pedido float-right">CADASTRAR</button>
+        <button (click)="this.usuario_show = !this.usuario_show" class="btn_bordacolor float-right"><span class="txt_color">CANCELAR</span></button>
+    </div>
+        
+</div>
+

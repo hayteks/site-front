@@ -1,0 +1,242 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Carrinho</h1>
+    <p>Finalizar pedido<span></span></p>
+    <p>Frete e pagamento<span></span></p>
+  </div>
+  <div class="clear"></div>
+  <div id="lista">
+    <div class="table-responsive">
+      <!-- PEDIDO GRADE -->
+      <table *ngIf="this.globals.logged.Pedido_pode_grade" class="table table-alternada table-condensed table-hover">
+        <thead>
+            <tr>
+              <th scope="col" class="padding20">Lente</th>
+              <th scope="col">Quantidade<br/>total</th>
+              <th scope="col">Valor</th>
+              <th scope="col" class="text-center">Editar</th>
+              <th scope="col" class="text-center">Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let pedGrade of this.globals.logged.Pedido_grade">
+              <tr (click)="abreDetalheGrade(pedGrade)"  onClick="
+                if(this.nextSibling.style.display == 'contents'){
+                  document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+                }else{
+                  document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+                  this.nextSibling.style.display = 'contents';
+                }">
+                <td class="padding15">
+                  <button alt="pedGrade.Lente.LENS_NAME" class="lente" [style.backgroundImage]="pedGrade.Lente.URL">
+                      
+                  </button>
+                  <div class="texto">
+                    <strong>{{ pedGrade.Lente.MATERIAL }}</strong><br/>
+                    {{ pedGrade.Lente.CARAC_PRINCIPAL }}<br/>
+                    {{ pedGrade.Lente.CARAC_SEGUNDARIA }}<br/>
+                    {{ pedGrade.Lente.CARAC_TERCIARIA }}<br/>
+                    {{ pedGrade.Lente.CARAC_QUARTENARIA }}<br/>
+                    {{ pedGrade.Lente.CARAC_QUINTENARIA }}
+                    
+                  </div>
+                </td>
+                <td>
+                  {{ pedGrade.QUANTIDADE }}
+                </td>
+                <td>
+                  <strong>{{ pedGrade.VALORTOTAL | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                </td>
+                <td class="text-center">
+                  <button class="btn_ico_pequeno" (click)="editarItemGrade(pedGrade)"><i class="fas fa-pen"></i></button>
+                </td>
+                <td class="text-center">
+                  <button class="btn_ico_pequeno" (click)="excluirItemGrade(pedGrade)" ><i class="fas fa-backspace"></i></button>
+                </td>
+              </tr>
+              <tr class="detalhes">
+                <td colspan="11">
+                  <div class="detalhes_content">
+                      <div *ngIf="pedGrade.Loading?.toString() !== '100'" class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width]="pedGrade.Loading + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ pedGrade.Loading }}%</div>
+                      </div>
+                      <div class="detalhes_caixas">
+                          <table class="table table-interna table-hover">
+                              <thead>
+                                <tr>
+                                  <th class="txt_left" scope="col">Grau</th>
+                                  <th scope="col">Diâmetro</th>
+                                  <th scope="col">Preço<br/>unitário</th>
+                                  <th scope="col">Qtd.</th>
+                                  <th scope="col">Valor total</th>
+                                  <!-- <th scope="col">Excluir</th> -->
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <ng-container *ngFor="let pedDetGrade of pedGrade.Detalhes">
+                                  <tr>
+                                    <td>
+                                        {{ pedDetGrade.MEDIDAS }}
+                                    </td>
+                                    <td>{{ pedDetGrade.DIAMETRO }}</td>
+                                    <td> {{ pedDetGrade.PRECO | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                                    <td>{{ pedDetGrade.QUANTIDADE }}</td>
+                                    <td> {{ pedDetGrade.VALORTOTAL | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                                    <!-- <td>
+                                      <button class="btn_ico_pequeno" (click)="excluirItemDetalheGrade(pedDetGrade)">x</button>
+                                    </td> -->
+                                  </tr>
+                                </ng-container>
+                              </tbody>
+                            </table>
+                      </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+      </table>
+      <!-- PEDIDO PAP -->
+      <table *ngIf="this.globals.logged.Pedido_pode_pap" class="table table-alternada table-condensed">
+        <ng-container *ngFor="let pedPap of this.globals.logged.Pedido_pap; first as isFirst;">
+          <thead *ngIf="isFirst">
+            <tr>
+              <th scope="col" class="padding20">Lente/OS</th>
+              <th scope="col">Item</th>
+              <th scope="col">Esférico</th>
+              <th scope="col" >{{ (pedPap.PRODUTO == 'FP%' ? 'Adição':'Cilindrico') }}</th>
+              <th scope="col">Eixo</th>
+              <th scope="col" class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="padding15" rowspan="2">
+                <button alt="pedPap.Lente.LENS_NAME" routerLink="/admin/parapar/empenho/{{pedPap.PRODUTO}}/{{pedPap.OSHTK}}" class="lente" [style.backgroundImage]="pedPap.Lente.URL">
+                    
+                </button>
+                <div class="texto">
+                  <strong>{{ pedPap.OSCLI }}</strong><br/>
+                  {{ pedPap.NOME }}
+                </div>
+              </td>
+              <td>
+                <strong>O.D.</strong>
+              </td>
+              <td scope="colPAP">{{pedPap.DIR_ESFER}}</td>
+              <td scope="colPAP">{{ (pedPap.PRODUTO == 'FP%' ? pedPap.DIR_ADD:pedPap.DIR_CIL) }}</td>
+              <td scope="colPAP">{{pedPap.DIR_EIXO}}</td>
+              <td class="text-center" rowspan="2">
+                <button class="btn_ico_pequeno" (click)="excluirItemPap(pedPap)" >x</button>
+                <br/>
+                <i style="margin: 20px auto 0px;cursor: pointer;" class="ico_armacao" *ngIf="pedPap.MONTAGEM == 'E'" (click)="abreDetalhePap(pedPap)"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>O.E.</strong>
+              </td>
+              <td scope="colPAP">{{pedPap.ESQ_ESFER}}</td>
+              <td scope="colPAP">{{ (pedPap.PRODUTO == 'FP%' ? pedPap.ESQ_ADD:pedPap.ESQ_CIL) }}</td>
+              <td scope="colPAP">{{pedPap.ESQ_EIXO}}</td>
+            </tr>
+            <tr>
+              <td colspan="7" class="text-center">
+                Valor: <strong>{{ pedPap.VLRLENTES | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                <ng-container *ngIf="pedPap.MONTAGEM == 'E'">
+                   | Montagem: <strong>{{ pedPap.VLRSERVICO | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                </ng-container>
+              </td>
+            </tr>
+            <tr *ngIf="pedPap.DetalheIO">
+              <td colspan="11">
+                <div class="detalhes_content">
+                    <div class="detalhes_caixas">
+                      <table class="table table-interna table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Esférico</th>
+                            <th scope="col" >{{ (pedPap.PRODUTO == 'FP%' ? 'Adição':'Cilindrico') }}</th>
+                            <th scope="col">Eixo</th>
+                            <th *ngIf="pedPap.MONTAGEM == 'E'" scope="col">DNP</th>
+                            <th *ngIf="pedPap.MONTAGEM == 'E'" scope="col">Altura</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="col">O.D.</td>
+                                <td scope="col">{{pedPap.Detalhes?.DIR_ESFER}}</td>
+                                <td scope="col">{{ (pedPap.Detalhes?.PRODUTO == 'FP%' ? pedPap.Detalhes?.DIR_ADD:pedPap.Detalhes?.DIR_CIL) }}</td>
+                                <td scope="col">{{pedPap.Detalhes?.DIR_EIXO}}</td>
+                                <td *ngIf="pedPap.MONTAGEM == 'E'" scope="col">{{pedPap.Detalhes?.RDNP}}</td>
+                                <td *ngIf="pedPap.MONTAGEM == 'E'" scope="col">{{pedPap.Detalhes?.RALTURA}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">O.E.</td>
+                                <td scope="col">{{pedPap.Detalhes?.ESQ_ESFER}}</td>
+                                <td scope="col">{{ (pedPap.Detalhes?.PRODUTO == 'FP%' ? pedPap.Detalhes?.ESQ_ADD:pedPap.Detalhes?.ESQ_CIL) }}</td>
+                                <td scope="col">{{pedPap.Detalhes?.ESQ_EIXO}}</td>
+                                <td *ngIf="pedPap.MONTAGEM == 'E'" scope="col">{{pedPap.Detalhes?.LDNP}}</td>
+                                <td *ngIf="pedPap.MONTAGEM == 'E'" scope="col">{{pedPap.Detalhes?.LALTURA}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                      <table *ngIf="pedPap.MONTAGEM == 'E'" class="table table-hover">
+                        <tr>
+                          <th scope="col">Marca</th>
+                          <th scope="col">Modelo</th>
+                          <th scope="col">Cor</th>
+                          <th scope="col">Material</th>
+                        </tr>
+                        <tr>
+                          <td>{{ pedPap.Detalhes?.MARCA }}</td>
+                          <td>{{ pedPap.Detalhes?.MODELO }}</td>
+                          <td>{{ pedPap.Detalhes?.COR }}</td>
+                          <td>{{ pedPap.Detalhes?.MATERIAL }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">Polimento de borda</th>
+                          <th scope="col">Tipo de Aro</th>
+                          <th scope="col">Aro</th>
+                          <th scope="col">Ponte</th>
+                        </tr>
+                        <tr>
+                          <td>{{ (pedPap.Detalhes?.POLIMENTO ? 'Sim':'Não') }}</td>
+                          <td>{{ pedPap.Detalhes?.TIPOARO }}</td>
+                          <td>{{ pedPap.Detalhes?.Aro }}</td>
+                          <td>{{ pedPap.Detalhes?.PONTE }}</td>
+                        </tr>
+                      </table>
+                      <table class="table table-hover">
+                        <tr *ngIf="pedPap.MONTAGEM == 'E'">
+                          <td class="text-center">
+                            Valor: <strong>{{ pedPap.VLRLENTES | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                            <ng-container *ngIf="pedPap.MONTAGEM == 'E'">
+                                | Montagem: <strong>{{ pedPap.VLRSERVICO | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                            </ng-container>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+
+  <div id="resumo">
+    <h3>Resumo</h3>
+    <p class="qtd_produtos">QUANTIDADE DE PRODUTOS: <span>{{ this.globals.logged.Pedido_total_lentes }}</span></p>
+    <p class="val_total">VALOR TOTAL: <span>{{ this.globals.logged.Pedido_valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+    <p>
+      <button routerLink="/admin/checkout" class="btn_pedido">FINALIZAR PEDIDO</button>
+      <button routerLink="/admin/lentes" class="btn_bordacolor"><span class="txt_color">CONTINUAR COMPRANDO</span></button>
+    </p>
+    <button class="btn_cancelar_pedido txt_color" (click)="cancelarPedido()">CANCELAR PEDIDO</button>
+  </div>
+  <div class="clear"></div>
+</div>

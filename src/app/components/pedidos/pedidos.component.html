@@ -1,0 +1,355 @@
+<div id="pedidos">
+  <div class="table-responsive">
+    <table class="table table-alternada table-condensed table-hover">
+      <thead>
+          <tr>
+            <th scope="col">Data do pedido</th>
+            <th scope="col">No do pedido cliente</th>
+            <th scope="col">No do pedido Haytek</th>
+            <th scope="col">Qtd.</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Status</th>
+            <th scope="col">Envio</th>
+            <th scope="col">Rastreio</th>
+            <th scope="col">Nota Fiscal</th>
+            <!-- <th scope="col">DANFE</th>
+            <th scope="col">XML</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let ped of this.globals.logged.Historicos">
+            <tr (click)="orderDetails(ped)" onClick="
+            if(this.nextSibling.style.display == 'contents'){
+              document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+            }else{
+              document.querySelectorAll('.detalhes').forEach(a=>a.style.display = 'none');
+              this.nextSibling.style.display = 'contents';
+            }">
+            <!-- console.log(this.getBoundingClientRect().top + window.scrollY);
+            window.scrollTo({
+              top: this.getBoundingClientRect().top + window.scrollY,
+              left: 0,
+              behavior: 'smooth'
+            }); -->
+              <td>{{ ped.Data_pedido + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ ped.PedCli }}</td>
+              <td>{{ ped.Pedhtk }}</td>
+              <td>{{ ped.Qtd }}</td>
+              <td>{{ ped.Valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+              <td>{{ ped.Pedstatus }}</td>
+              <td>{{ ped.Data_prevista + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+              <td *ngIf="ped.Link"><a class="link" target="_blank" href="{{ ped.Link }}">{{ ped.Transportadora }}</a></td>
+              <td *ngIf="!ped.Link">{{ ped.Transportadora }}</td>
+              <td>{{ ped.Nfe }}</td>
+              <!-- <td><i class="ico_pdf"></i></td>
+              <td><i class="ico_xml"></i></td> -->
+            </tr>
+            <tr class="detalhes">
+              <td colspan="11">
+                <div class="detalhes_content">
+                    <div *ngIf="ped.LOADING?.toString() !== '100'" class="progress">
+                      <div class="progress-bar" role="progressbar" [style.width]="ped.LOADING + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ ped.LOADING }}%</div>
+                    </div>
+                    <div *ngIf="ped.PARAPAR" class="detalhes_caixas">
+                      <table class="table table-interna table-hover">
+                        <ng-container *ngFor="let det of ped.PedDetalhes; first as isFirst" >
+                          <thead *ngIf="isFirst">
+                            <tr>
+                              <th class="txt_left" scope="colPAP">Item</th>
+                              <th scope="colPAP"></th>
+                              <th scope="colPAP">Esférico</th>
+                              <th scope="colPAP">{{ (det.PRODUTO == 'FP%' ? 'Adição':'Cilindrico') }}</th>
+                              <th *ngIf="det.MONTAGEM == 'E'" scope="colPAP">Eixo</th>
+                              <th *ngIf="det.MONTAGEM == 'E'" scope="colPAP">DNP</th>
+                              <th *ngIf="det.MONTAGEM == 'E'" scope="colPAP">Altura</th>
+                              <th *ngIf="det.MONTAGEM == 'E'" scope="colPAP"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="detalhes_lente" rowspan="2">
+                                <span><i class="ico_lente_p" [style.backgroundColor]="'#' + det.Lente.CORDOSITE"></i>{{ det.Lente.MATERIAL }}</span>
+                                <p class="uppercase">{{ det.Lente.CARAC_PRINCIPAL }}</p>
+                                <p>{{ det.Lente.CARAC_SEGUNDARIA }}</p>
+                                <p>{{ det.Lente.CARAC_TERCIARIA }}</p>
+                              </td>
+                              <td scope="colPAP">
+                                O.D.
+                              </td>
+                              <td scope="colPAP">{{det.DIR_ESFER}}</td>
+                              <td scope="colPAP">{{ (det.PRODUTO == 'FP%' ? det.DIR_ADD:det.DIR_CIL) }}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.DIR_EIXO}}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.RDNP}}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.RALTURA}}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP" rowspan="2" (click)="openPAP(det)"><i class="ico_armacao"></i></td>
+                            </tr>
+                            <tr>
+                              <td scope="colPAP">
+                                O.E.
+                              </td>
+                              <td scope="colPAP">{{det.ESQ_ESFER}}</td>
+                              <td scope="colPAP">{{ (det.PRODUTO == 'FP%' ? det.ESQ_ADD:det.ESQ_CIL) }}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.ESQ_EIXO}}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.LDNP}}</td>
+                              <td *ngIf="det.MONTAGEM == 'E'" scope="colPAP">{{det.LALTURA}}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="8" class="text-center">
+                                Valor: <strong>{{ det.VLRLENTES | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                                <ng-container *ngIf="det.MONTAGEM == 'E'">
+                                   | Montagem: <strong>{{ det.VLRSERVICO | currency:'BRL':'symbol':'1.2-2':'pt' }}</strong>
+                                </ng-container>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </ng-container>
+                      </table>
+                    </div>
+                    <div *ngIf="!ped.PARAPAR" class="detalhes_caixas">
+                      <table class="table table-interna table-hover">
+                        <thead>
+                          <tr>
+                            <th class="txt_left" scope="col">Item</th>
+                            <th scope="col">Qtd.</th>
+                            <th scope="col">Preço unitário</th>
+                            <th scope="col">Valor total</th>
+                            <th scope="col">Ver grade</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let det of ped.PedDetalhes">
+                            <td class="detalhes_lente">
+                              <span><i class="ico_lente_p" [style.backgroundColor]="'#' + det.Lente.CORDOSITE"></i>{{ det.Lente.MATERIAL }}</span>
+                              <p class="uppercase">{{ det.Lente.CARAC_PRINCIPAL }}</p>
+                              <p>{{ det.Lente.CARAC_SEGUNDARIA }}</p>
+                              <p>{{ det.Lente.CARAC_TERCIARIA }}</p>
+                            </td>
+                            <td>{{ det.QUANTIDADE }}</td>
+                            <td>{{ det.PRECO_DANF | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                            <td>{{ det.VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                            <td (click)="openGrade(det, ped.Pedhtk)"><i class="ico_lupagrade"></i></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="ped.PedRastreio?.CEP" class="detalhes_caixas">
+                      <table class="table table-interna table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">INFORMAÇÕES DE ENTREGA</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <p>
+                                {{ ped.PedRastreio?.BAIRRO }}<br/>
+                                {{ ped.PedRastreio?.ENDEREC }}<br/>
+                                CEP {{ ped.PedRastreio?.CEP }}, {{ ped.PedRastreio?.MUN }} - {{ ped.PedRastreio?.UF }}
+                              </p>
+                              <div>
+                                
+                              </div>
+                              <div class="rastreios">
+                                <div class="rastreio fase1 {{ ped.PedRastreio?.ZZ5_EMISSA.trim() !== '' && ped.PedRastreio?.ZZ5_EMISSA.trim() !== null ? 'active':'' }}">
+                                  <span class="rastreio_linha"></span>
+                                  <span class="rastreio_bola"></span>
+                                  <p class="rastreio_info">Realizado</p>
+                                  <p class="rastreio_desc">{{ (ped.PedRastreio?.ZZ5_EMISSA.trim() !== '' && ped.PedRastreio?.ZZ5_EMISSA.trim() !== null ? ped.PedRastreio?.ZZ5_EMISSA + 'T00:00:00.000' : '') | date: 'dd/MM/yyyy' }}<br/>{{ ped.PedRastreio?.ZZ5_HORAPE }}</p>
+                                </div>
+                                <div class="rastreio fase2 {{ ped.PedRastreio?.DATANOTA.trim() !== '' && ped.PedRastreio?.DATANOTA.trim() !== null ? 'active':'' }}">
+                                  <span class="rastreio_linha"></span>
+                                  <span class="rastreio_bola"></span>
+                                  <p class="rastreio_info">NFE</p>
+                                  <p class="rastreio_desc">{{ (ped.PedRastreio?.DATANOTA.trim() !== '' && ped.PedRastreio?.DATANOTA.trim() !== null ? ped.PedRastreio?.DATANOTA + 'T00:00:00.000' : '') | date: 'dd/MM/yyyy' }}<br/>{{ ped.PedRastreio?.HORANOTA }}</p>
+                                </div>
+                                <div class="rastreio fase3 {{ ped.PedRastreio?.DATADEPAC.trim() !== '' && ped.PedRastreio?.DATADEPAC.trim() !== null ? 'active':'' }}">
+                                  <span class="rastreio_linha"></span>
+                                  <span class="rastreio_bola"></span>
+                                  <p class="rastreio_info">Em transporte</p>
+                                  <p class="rastreio_desc">{{ (ped.PedRastreio?.DATADEPAC.trim() !== '' && ped.PedRastreio?.DATADEPAC.trim() !== null ? ped.PedRastreio?.DATADEPAC + 'T00:00:00.000' : '')  | date: 'dd/MM/yyyy' }}<br/>{{ ped.PedRastreio?.HORADESP }}</p>
+                                </div>
+                                <div class="rastreio fase4 {{ ped.PedRastreio?.DATACHEG.trim() !== '' && ped.PedRastreio?.DATACHEG.trim() !== null ? 'active':'' }}">
+                                  <span class="rastreio_linha"></span>
+                                  <span class="rastreio_bola"></span>
+                                  <p *ngIf="ped.PedRastreio?.DATAPREVISTA.trim() && !ped.PedRastreio?.DATACHEG?.trim()" class="rastreio_info">Previsão</p>
+                                  <p *ngIf="ped.PedRastreio?.DATAPREVISTA.trim() && !ped.PedRastreio?.DATACHEG?.trim()" class="rastreio_desc">{{ (ped.PedRastreio?.DATAPREVISTA.trim() !== '' && ped.PedRastreio?.DATAPREVISTA.trim() !== null ? ped.PedRastreio?.DATAPREVISTA + 'T00:00:00.000' : '') | date: 'dd/MM/yyyy' }}</p>
+                                  <p *ngIf="ped.PedRastreio?.DATACHEG.trim()" class="rastreio_info">Entregue</p>
+                                  <p *ngIf="ped.PedRastreio?.DATACHEG.trim()" class="rastreio_desc">{{ (ped.PedRastreio?.DATACHEG.trim() !== '' && ped.PedRastreio?.DATACHEG.trim() !== null ? ped.PedRastreio?.DATACHEG + 'T00:00:00.000' : '') | date: 'dd/MM/yyyy' }}<br/>{{ ped.PedRastreio?.HORAENTR }}</p>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="ped.Boletos?.length > 0" class="detalhes_caixas caixa_dir">
+                      <table class="table table-interna table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" colspan="5">INFORMAÇÕES DE PAGAMENTO</th>
+                          </tr>
+                          <tr>
+                            <th scope="col">Vencimento</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Parcela</th>
+                            <th scope="col">Boleto</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let bol of ped.Boletos">
+                            <td>{{ bol.VENCTO + 'T00:00:00.000' | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ bol._STATUS }}</td>
+                            <td>R$ {{ bol.VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                            <td>{{ bol.PARCELA }}</td>
+                            <td><a href="{{ bol.BOLETO }}" target="_blank"><i class="ico_pdf"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="ped.Danfes?.length > 0" class="detalhes_caixas caixa_dir">
+                      <table class="table table-interna table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" colspan="5">INFORMAÇÕES DE DANFES</th>
+                          </tr>
+                          <tr>
+                            <th scope="col">NFE</th>
+                            <th scope="col">DANFE</th>
+                            <th scope="col">XML</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let dan of ped.Danfes">
+                            <td>{{ dan.NFE }}</td>
+                            <td><a href="{{ dan.DANFE }}" target="_blank"><i class="ico_pdf"></i></a></td>
+                            <td><a href="{{ dan._XML }}" target="_blank"><i class="ico_xml"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+    </table>
+  </div>
+</div>
+<div class="table_dados">
+  <div class="pagina_atual">página {{ this.paginaAtual }} de {{ this.globals.varsIO.historicoPagina }}</div>
+  <div class="paginacao">
+    <a href="javascript:void(0);" (click)="paginacao(this.paginaAtual - 1)"><span>«</span>página anterior</a>
+    <a href="javascript:void(0);" (click)="paginacao(this.paginaAtual + 1)">próxima página<span>»</span></a>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div *ngIf="popGrade" class="popDetalhes" id="popGrade">
+    <div class="alerta_fundo" (click)="closePop()"></div>
+    <div class="alerta_content">
+      <div class="alerta_fechar ico_fechar" (click)="closePop()"></div>
+      <div class="pedido_escolhido" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+        <p class="l_espessura">{{ this.globals.varsIO.LenteIO.MATERIAL }}</p>
+        <div class="pedido_texto">
+          <p class="l_tipo">{{ this.globals.varsIO.LenteIO.CARAC_PRINCIPAL }}</p><!-- antirreflexo -->
+          <p class="l_descricao">{{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA + ' ' + this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}</p><!-- Lente Visão Simples CR-39 -->
+        </div>
+      </div>
+      <div class="pedido_acao">
+        <div class="pedidos_filtros">
+            <ng-container *ngFor="let grades of this.globals.varsIO.LenteIO.GradesOPCODE">
+              <a class="btnGrade" href="javascript:void(0);" (click)="mudaGrade(grades.GRADE)" [ngClass]="grades.EXIBE ? 'active':''" >GRADE {{ grades.GRADE }}</a>
+              <!-- class="active" -->
+            </ng-container>
+        </div>
+        <div class="imprimir_tabela"><a href="">IMPRIMIR</a></div>
+        <div class="table-responsive">
+          <ng-container *ngFor="let grades of this.globals.varsIO.LenteIO.GradesOPCODE">
+            <table *ngIf="grades.EXIBE" class="table table-bordered table-condensed size-td-p">
+              <ng-container *ngFor="let e_x of grades.EIXO_X; first as isFirst">
+                <tr *ngIf="isFirst">
+                  <th class="table_branco"></th>
+                  <th class="table_branco"></th>
+                  <th colspan="50" class="table_branco fundo_traco_h"><p>Grau {{ grades.EIXO_X_NOME }}</p></th>
+                </tr>
+                <tr *ngIf="isFirst">
+                  <th class="table_branco"></th>
+                  <th scope="col"></th>
+                  <ng-container *ngFor="let h_y of e_x.EIXO_Y;">
+                    <th scope="col">{{ h_y.EIXO | number:'1.2-2' }}</th>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td *ngIf="isFirst" class="table_branco fundo_traco_v" rowspan="300"><p class="txt_vertical">G<br/>r<br/>a<br/>u<br/><br/>e<br/>s<br/>f<br/>é<br/>r<br/>i<br/>c<br/>o</p></td>
+                  <th scope="col">{{ e_x.ESFERICO | number:'1.2-2' }}</th>
+  
+                  <ng-container *ngFor="let h_y of e_x.EIXO_Y;">
+                    <td scope="col">{{ h_y.QTD }}</td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </table>
+            <div class="clear"></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div *ngIf="popPAP" class="popDetalhes PAP" id="popPAP">
+  <div class="alerta_fundo" (click)="closePop()"></div>
+  <div class="alerta_content">
+    <div class="alerta_fechar ico_fechar" (click)="closePop()"></div>
+    <div class="pedido_escolhido" [style.backgroundColor]="'#'+ this.popPAPLente.CORDOSITE">
+      <p class="l_espessura">{{ this.popPAPLente.MATERIAL }}</p>
+      <div class="pedido_texto">
+        <p class="l_tipo">{{ this.popPAPLente.CARAC_PRINCIPAL }}</p><!-- antirreflexo -->
+        <p class="l_descricao">{{ this.popPAPLente.CARAC_SEGUNDARIA + ' ' + this.popPAPLente.CARAC_TERCIARIA }}</p><!-- Lente Visão Simples CR-39 -->
+      </div>
+    </div>
+    <div class="pedido_acao">
+      <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+              <th scope="col">Marca</th>
+              <td>{{ this.pedDetalhePAP.MARCA }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Modelo</th>
+              <td>{{ this.pedDetalhePAP.MODELO }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Cor</th>
+              <td>{{ this.pedDetalhePAP.COR }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Material</th>
+              <td>{{ this.pedDetalhePAP.MATERIAL }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Polimento de borda</th>
+              <td>{{ (this.pedDetalhePAP.POLIMENTO ? 'Sim':'Não') }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Tipo de Aro</th>
+              <td>{{ this.pedDetalhePAP.TIPOARO }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Aro</th>
+              <td>{{ this.pedDetalhePAP.Aro }}</td>
+            </tr>
+            <tr>
+              <th scope="col">Ponte</th>
+              <td>{{ this.pedDetalhePAP.PONTE }}</td>
+            </tr>
+        </table>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,15 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Downloads</h1>
+  </div>
+  <div class="clear"></div>
+  <div class="downloads_box">
+    <ng-container  *ngFor="let down of this.globals.varsIO.Downloads">
+      <div class="download_box">
+        <h3 [innerHTML]="down.TITULO"></h3>
+        <!-- <p></p> -->
+        <a target="_blank" [href]="down.URL">BAIXAR PDF</a>
+      </div>
+    </ng-container>
+  </div>
+</div>

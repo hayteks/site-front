@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Ropa+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+body{font-family:'Ropa Sans', sans-serif!important;margin:0px;}
+
+.content{width:100%;border-radius:10px;background-color:#fff;min-height:300px;padding: 10px 0;}
+#content_title{width: calc(100% - 10px);padding: 10px 0px;border-bottom: 1px solid #3a94df;height: 45px;}
+#content_title h1{font-family:'Open Sans',sans-serif;display: inline-block;position: absolute;font-size: 23px;font-weight: 700;color: #3a94df;background-color: #fff;margin: 0;padding: 0px 20px;top:32px;}
+#content_title h5{display: inline-block;position: absolute;font-size: 14px;color: #545454;margin: 40px 0;padding: 0px 20px;}
+#content_pedido{width:50%; text-align:center;float: left;}
+
+
+
+.ico_fazerpedido{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_fazerpedido.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_meuspedidos{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_meuspedidos.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_financeiro{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_financeiro.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_downloads{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_downloads.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_usuarios{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_usuarios.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_enderecos{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_enderecos.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_alterarsenha{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_alterarsenha.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_sair{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_sair.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_carrinho{display:inline-block;vertical-align:middle;width:40px;height:40px;background-image:url('assets/images/ico_carrinho.png');background-repeat:no-repeat;background-position:center center;background-size:40px 40px;}
+.ico_emgrade{display:inline-block;vertical-align:middle;width:50px;height:50px;background-image:url('assets/images/ico_emgrade.png');background-repeat:no-repeat;background-position:center center;background-size:50px 50px;}
+.ico_parapar{display:inline-block;vertical-align:middle;width:50px;height:50px;background-image:url('assets/images/ico_parapar.png');background-repeat:no-repeat;background-position:center center;background-size:50px 50px;}
+.ico_percento{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('assets/images/ico_percento.png');background-repeat:no-repeat;background-position:center center;background-size:16px 16px;}
+.ico_cifrao{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('assets/images/ico_cifrao.png');background-repeat:no-repeat;background-position:center center;background-size:16px 16px;}
+.ico_exclama{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('assets/images/ico_exclama.png');background-repeat:no-repeat;background-position:center center;background-size:16px 16px;}
+.ico_fechar{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_fechar.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_xml{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_xml.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_pdf{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_pdf.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_armacao{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_armacao_l.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_lupagrade{display:inline-block;vertical-align:middle;width:20px;height:20px;background-image:url('assets/images/ico_lupagrade.png');background-repeat:no-repeat;background-position:center center;background-size:20px 20px;}
+.ico_usuario{display:inline-block;vertical-align:middle;width:40px;height:40px;background-image:url('assets/images/ico_usuario.png');background-repeat:no-repeat;background-position:center center;background-size:40px 40px;}
+.ico_star{display:inline-block;vertical-align:middle;width:30px;height:30px;background-image:url('assets/images/ico_star.png');background-repeat:no-repeat;background-position:center center;background-size:30px 30px;}
+.ico_localizacao{display:inline-block;vertical-align:middle;width:70px;height:70px;background-image:url('assets/images/ico_localizacao.png');background-repeat:no-repeat;background-position:center center;background-size:70px 70px;}
+.ico_lente_p{display: inline-block;width: 12px;height: 12px;margin: 0 5px 0 0;}
+
+.fundo_traco_h{background-image:url('assets/images/fundo_table_h.png');background-repeat:repeat-x;background-position:center center;}
+.fundo_traco_v{background-image:url('assets/images/fundo_table_v.png');background-repeat:repeat-y;background-position:center center;}
+
+/* .btn_pedido{
+    display: inline-block;
+    width:40%;
+    height:90px;
+    border-radius: 4px;
+    margin: 20px 10px 10px;
+    padding: 0;
+    border: 0px;
+    color:#fff!important;
+    font-size:18px;
+    text-decoration: none!important;
+    white-space: normal;
+    background: #fe828e;s
+    background: -moz-linear-gradient(left, #fe828e 0%, #cf95be 50%, #a0a6ec 100%); 
+    background: -webkit-linear-gradient(left, #fe828e 0%,#cf95be 50%,#a0a6ec 100%); 
+    background: linear-gradient(to right, #fe828e 0%,#cf95be 50%,#a0a6ec 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fe828e', endColorstr='#a0a6ec',GradientType=1 );
+  }
+.btn_pedido i{height: 80px;float:left;margin: 5px;}
+.btn_pedido p{height:90px;margin:0px;} */
+
+.btn_comborda{display: block;width: 90px;height: 25px;border: 1px solid #6b93e8;color: #6b93e8;font-size: 16px;line-height: 25px;margin: 10px auto;border-radius: 5px;text-decoration: none;    border-bottom-color: rgba(255, 130, 139, 0.5);border-left-color: rgba(255, 130, 139, 0.9);border-top-color: rgba(160, 167, 238, 0.9);border-right-color: rgba(160, 167, 238, 0.7);cursor:pointer;}
+.btn_limpar{display: inline-block;cursor:pointer;width: 150px;font-weight:800;height: 25px;background-color: transparent;border: 0;color: #6b93e8;font-size: 10px;line-height: 25px;margin: 10px auto;text-decoration: none;letter-spacing: 1px;}
+.btn_pedido {background-image: -webkit-linear-gradient(to right, #ff828e, #a0a7ee 100%);background-image: -moz-linear-gradient(to right, #ff828e, #a0a7ee 100%);background-image: -o-linear-gradient(to right, #ff828e, #a0a7ee 100%);background-image: linear-gradient(to right, #ff828e, #a0a7ee 100%);background-size: 100%;background-repeat: repeat-y;display: block;margin: 0 auto 10px auto;padding: 22px 90px;border-radius: 4px;font-family: 'PT Sans', sans-serif;font-weight: 800;letter-spacing: 1px;font-size: 18px;color: #fff;border: none;outline: 0;cursor: pointer;transition: all .3s ease-out;width: 100%;cursor:pointer;}
+.btn_pedido:hover {background-size: 370%;background-position: unset;}
+.box-shadow {-webkit-box-shadow: 3px 3px 28px #00000036;-moz-box-shadow: 3px 3px 28px #00000036;box-shadow: 3px 3px 28px #00000036;}
+
+.btn_bordacolor{display: inline-block;vertical-align: middle;box-sizing: border-box;background-clip: padding-box, border-box;background-origin: padding-box, border-box;border: 1px solid transparent;background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(80deg, #fb8e9d 0%, #b0adea);transition-duration: .2s;transition-property: background-image;transition: .2s all linear;border-radius:4px;}
+.txt_color{background: linear-gradient(80deg, #fb8e9d 0%, #b0adea);-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;transition: .2s all linear;font-family: 'PT Sans', sans-serif;font-weight: 800;letter-spacing: 1px;font-size: 18px;}
+
+.table-alternada tr {background: #EFF2FB;}
+.table-alternada tr:nth-child(4n+1), .table-alternada tr:nth-child(4n+2) {background: #FFFFFF;}
+
+.table{font-size:14px;line-height:16px;color:#6d6d6d;border: 0px!important;}
+.table th{font-size:14px;line-height: 18px;background-color:#dce6ea;color:#545454;}
+
+/* .table-interna{} */
+.table-interna, .table-interna thead, .table-interna tr, .table-interna th{background-color:#fff!important;}
+.table-interna th{border-top:0px!important;}
+
+.txt_left{text-align:left;}
+.text_vrotate{-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);}
+.text_valign{display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-align-content: center;-ms-flex-line-pack: center;align-content: center;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;}
+.clear{clear:both;}
+.size-td-p tr, .size-td-p thead{height:20px}
+.size-td-p th, .size-td-p td{width: 50px;height: 20px;padding: 0px!important;margin: 0px!important;}
+
+
+.lente{display: block;border:0;width: 150px;height: 150px;color: #fff;padding: 15px;border-radius: 5px;text-decoration: none;background-size: 100%;cursor:pointer;}
+.lente p{text-decoration: none;}
+.lente .l_espessura{width: 100%;font-size: 40px;line-height: 55px;text-align: center;margin: 0;}
+.lente .l_tipo{width:100%;font-size:14px;margin: 0px 0px 5px;text-align: left;text-transform: uppercase;}
+.lente .l_descricao{width:100%;font-size:11px;margin:0px;text-align: left;}
+.lente_comprar{display: block;width: 90px;height: 25px;border: 1px solid #6b93e8;color: #6b93e8;font-size: 16px;line-height: 25px;margin: 10px auto;border-radius: 5px;text-decoration: none;}
+
+.uppercase{text-transform: uppercase!important;}
+.text-center {text-align: center;}
+.text-left {text-align: left;}
+.padding15 {padding-left:15px!important;}
+.padding20 {padding-left:20px!important;}
+
+.float-left{float:left;}
+.float-right{float:right;}
+
+.disabled_back{background-color:#f8fafb;}
+/*.disabled_content{opacity:0.5;}*/
+
+.required{border: 1px solid #ff828e!important;}

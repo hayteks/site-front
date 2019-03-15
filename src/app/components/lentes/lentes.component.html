@@ -1,0 +1,45 @@
+<div id="lentes">
+  <!-- <div class="sem_historico text_valign">
+      <p class="">Você não fez nenhum pedido. Comece agora!</p>
+  </div> -->
+
+  <div class="lentes_filtros">
+      <a href="javascript:void(0);" [ngClass]="{'active': showAll}" (click)="todasLentes()">TODAS AS LENTES</a>
+      <a href="javascript:void(0);" [ngClass]="{'active': showMven}" (click)="maisVendidas()">MAIS VENDIDAS</a>
+      <a href="javascript:void(0);" [ngClass]="{'active': showInd}" (click)="nossasIndicacoes()">NOSSAS INDICAÇÕES</a>
+  </div>
+  
+  <div class="clear"></div>
+
+    <ng-container *ngFor="let l of this.globals.logged.Lentes">
+        <div class="lente_box" *ngIf="(showAll) || (showInd && l.INDICADA) || (showMven && l.MAIS_VENDIDA)">
+            <a href="javascript:void(0);" alt="l.LENS_NAME" (click)="abrePopup(l)" class="lente" [style.backgroundImage]="l.URL">
+            </a>
+            <a href="javascript:void(0)" (click)="abrePopup(l)" class="lente_comprar">COMPRAR</a>
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="_lente.ativa" id="alerta">
+    <div class="alerta_fundo"></div>
+    <div class="alerta_content">
+        <div class="alerta_fechar ico_fechar" (click)="fechaPopup()" ></div>
+        <div class="lente_escolhida text_valign" [style.backgroundColor]="_lente.cor">
+            <div class="lente_texto ">
+                <span>PRODUTO SELECIONADO</span>
+                <p class="l_espessura" [innerHTML]="_lente.espessura"></p>
+                <p class="l_tipo" [innerHTML]="_lente.tipo"></p>
+                <p class="l_descricao" [innerHTML]="this._lente.descricao"></p>
+            </div>
+        </div>
+        <div class="lente_acao">
+            <h3>Escolha um tipo de pedido</h3>
+            <button *ngIf="this.globals.logged.Pedido_pode_grade && _lente.grade" (click)="abrePedidoGrade(_lente.produto)" class="btn_pedido emgrade">
+                <i class="ico_emgrade"></i>PEDIDO EM GRADE
+            </button>
+            <button *ngIf="this.globals.logged.Company_active.PODEPARAPAR && this.globals.logged.Pedido_pode_pap && _lente.parapar" (click)="abrePedidoPAP(_lente.produto)" class="btn_pedido parapar">
+                <i class="ico_parapar"></i>PEDIDO PAR A PAR
+            </button>
+        </div>
+    </div>
+</div>

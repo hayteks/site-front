@@ -1,0 +1,59 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Endereços</h1>
+    <button (click)="cadastrar()" class="btn_pedido">NOVO ENDEREÇO</button>
+  </div>
+  <div class="clear"></div>
+  <div class="table-responsive">
+    <div class="enderecos_box">
+      <div class="endereco_box" *ngFor="let end of this.globals.logged.Enderecos">
+        <i class="ico_localizacao"></i>
+        <div class="endereco_text">
+          <h3>{{ this.globals.logged.Company_active.A1_NREDUZ }}</h3>
+          <span>{{ end.Z3_BAIRRO }}</span>
+          <p>
+            {{ end.Z3_ENDEREC }}, {{ end.Z3_NUMERO }}<br/>
+              {{ end.Z3_COMPLEM }}, CEP {{ end.Z3_CEP }}<br/>
+              {{ end.Z3_MUN }}, {{ end.Z3_UF }} 
+          </p>
+        </div>
+        <div class="clear"></div><hr/>
+        <div class="endereco_btns">
+          <div class="end_principal" *ngIf="end.Z3_UTLIMO === '1'"><i class="ico_star"></i><p>ENDEREÇO PRINCIPAL</p></div>
+          <button *ngIf="end.Z3_UTLIMO !== '1'" (click)="tornarPadrao(end)" class="txt_color">TORNAR PADRÃO</button>
+          <button (click)="alterar(end)" class="btn_bordacolor"><span class="txt_color">ALTERAR</span></button>
+          <button (click)="excluir(end)" class="btn_bordacolor" *ngIf="end.Z3_UTLIMO !== '1'"><span class="txt_color">EXCLUIR</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.endereco_show" id="background_editar"></div>
+<div *ngIf="this.endereco_show" id="editar">
+    <h1>{{ this.globals.varsIO.EnderecoIO?.ID_ENDERECO > 0 ? 'Editar' : 'Cadastrar' }} endereço</h1>
+    <div id="inputs">
+        <input type="text" (keydown)="maxCEP($event);" (keyup)="buscaCEP();" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_CEP" placeholder="CEP" />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_ENDEREC" placeholder="Endereço" disabled />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_NUMERO" placeholder="Numero" />
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_COMPLEM" placeholder="Complemento" />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_BAIRRO" placeholder="Bairro" disabled />
+        <div class="clear"></div>
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_MUN" placeholder="Município" disabled />
+        <input type="text" [(ngModel)]="this.globals.varsIO.EnderecoIO.Z3_UF" placeholder="UF" disabled />
+
+        <div clas="clear"></div>
+        <button (click)="this.endereco_show = !this.endereco_show" class="btn_bordacolor float-left"><span class="txt_color">CANCELAR</span></button>
+        <button (click)="salvar()" class="btn_pedido float-right">CADASTRAR</button>
+    </div>
+        
+</div>
+
+
+
+
+
+

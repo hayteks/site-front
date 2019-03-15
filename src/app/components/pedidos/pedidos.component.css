@@ -1,0 +1,348 @@
+html {
+    scroll-behavior: smooth;
+}
+.table td, .table th {
+    text-align: center;
+    padding: .75rem .5rem .75rem .5rem;
+    vertical-align: middle!important;
+}
+.table td.col, .table th.col {
+    min-width: 90px;
+}
+.table td.colPAP, .table th.colPAP {
+    min-width: auto;
+}
+
+#pedidos{
+    text-align: center;
+    background-color: #f8fafb;
+    border: 2px solid #dce6ea;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#pedidos .link{
+    color: #9fa7ee;
+    text-decoration: underline;
+}
+
+
+#pedidos .table .detalhes{
+    display:none;
+    overflow: hidden;
+}
+.detalhes_lente p{
+    display: block;
+    font-size:12px;
+    text-transform: lowercase;
+    color:#545454;
+    margin:2px 0;
+    text-align:left;
+    width:100%;
+}
+
+.detalhes_lente p:nth-child(0){
+    display: block;
+    font-size:14px!important;
+    text-transform: uppercase;
+    color:#545454;
+    margin:2px 0;
+    text-align:left;
+    width:100%;
+}
+
+.detalhes_lente span{
+    display: block;
+    font-size:16px;
+    color:#545454;
+    text-align:left;
+    width:100%;
+}
+.table_dados{
+    margin: 20px 20px 50px;
+    color:#bac8ce;
+}
+.table_dados .pagina_atual{
+    width:50%;
+    float:left;
+    text-align:left;
+}
+.table_dados .paginacao{
+    width:50%;
+    float:right;
+    text-align:right;
+}
+.table_dados .paginacao a{
+    text-decoration: none;
+    color:#bac8ce;
+    margin:0 10px;
+}
+.table_dados .paginacao a span{
+    color:#9fa7ee;
+    margin:0 5px;
+}
+
+.detalhes_caixas{
+    float:left;
+    max-width:calc(50% - 20px);
+    width:100%;
+    background-color:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px;
+}
+
+.detalhes_caixas.caixa_dir{
+    float:right;
+}
+
+.popDetalhes.PAP .alerta_content{
+    position: fixed;
+    width: calc(60% - 40px);
+    max-height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 20px auto;
+    top: 10px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.popDetalhes .alerta_fundo{
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.7;
+    z-index: 999;
+}
+.popDetalhes .alerta_content{
+    position: fixed;
+    width: calc(100% - 40px);
+    min-height: 350px;
+    background-color: #ffffff;
+    border-radius:10px;
+    margin: 20px;
+    top: 10px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.popDetalhes .alerta_fechar{
+    position:absolute;
+    width:20px;
+    height:20px;
+    top: 10px;
+    right:10px;
+    cursor:pointer;
+}
+
+.popDetalhes .pedido_escolhido{
+    height: 100px;
+    text-align: center;
+}
+.popDetalhes .pedido_texto, .popDetalhes .l_espessura{
+    display: inline-block;
+    vertical-align: top;
+    height: 100px;
+    color:#fff;
+}
+
+.popDetalhes .l_espessura{
+    font-size: 72px;
+    line-height: 100px;
+    text-align: left;
+    margin: 0;
+}
+.popDetalhes .pedido_texto{
+    padding: 25px 6px 0;
+    max-width: 200px;
+}
+.popDetalhes .pedido_texto .l_tipo{
+    font-size:22px;
+    line-height: 22px;
+    text-align: left;
+    margin:0;
+    text-transform: uppercase;
+}
+.popDetalhes .pedido_texto .l_descricao{
+    font-size:18px;
+    line-height: 20px;
+    text-align: left;
+    margin:0;
+}
+
+.popDetalhes .pedido_acao{
+    position:absolute;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding:20px;
+    text-align:center;
+    background-color:#f8fafb;
+}
+
+.popDetalhes .pedidos_filtros{
+    display: block;
+    margin: 20px auto;
+    padding: 0px;
+    background-color: #fff;
+    height: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.popDetalhes .pedidos_filtros a{
+    display: inline-block;
+    color: #6b93e8;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 40px;
+    margin: 0 10px;
+}
+
+.popDetalhes .pedidos_filtros a.active{
+    border-bottom:1px solid #6b93e8;
+}
+
+.popDetalhes .pedido_acao .table_branco{
+    position:relative;
+    background-color:#f8fafb!important;
+    border:0px!important;
+    height:20px;
+    padding: 0;
+}
+
+.popDetalhes .pedido_acao .table_branco p{
+    margin: 0 auto;
+    display:block;
+    background-color: #f8fafb;
+    text-align: center;
+    color: #545454;
+    line-height: 40px;
+    width: 100px;
+
+}
+.popDetalhes .pedido_acao .table_branco p.txt_vertical{
+    margin: 50% auto;
+    display:block;
+    background-color: #f8fafb;
+    text-align: center;
+    color: #545454;
+    line-height: 14px;
+    width: 20px;
+
+}
+.popDetalhes .imprimir_tabela{
+    float:right;
+}
+.popDetalhes .imprimir_tabela a{
+    display: block;
+    width: 90px;
+    height: 35px;
+    border: 1px solid #6b93e8;
+    color: #6b93e8;
+    font-size: 12px;
+    line-height: 35px;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+.detalhes_caixas{
+    float:left;
+    max-width:calc(100% - 20px);
+}
+}
+
+.rastreios{
+    width: 100%;
+}
+.rastreio{
+    position: relative;
+    float: left;
+    height: 100px;
+    width: 25%;
+}
+.rastreio_linha{
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    top: 20%;
+    left: 0px;
+    background-color: #dce6ea;
+}
+.rastreio.fase1 .rastreio_linha{
+    width: 50%;
+    left: 50%;
+}
+.rastreio.fase4 .rastreio_linha{
+    width: 50%;
+    left: 0;
+    right:50%;
+}
+
+.rastreio_bola{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #dce6ea;
+    border-radius: 50%;
+    top: calc(20% - 10px);
+    left: calc(50% - 10px);
+    border: 4px solid #dce6ea;
+}
+
+.rastreio.active .rastreio_bola{
+    background-color: #c19acb;
+}
+
+.rastreio_info{
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #bac8ce;
+}
+.rastreio_desc{
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #bac8ce;
+}
+
+.rastreio.active .rastreio_info{
+    color: #000;
+}
+.rastreio.active .rastreio_desc{
+    color: #000;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .table_dados .pagina_atual{
+        width:100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .table_dados .paginacao{
+        width:100%;
+        text-align: center;
+    }
+}

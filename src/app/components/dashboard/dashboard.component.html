@@ -1,0 +1,65 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Fazer pedido</h1>
+  </div>
+  <div id="content_pedido">
+    <button *ngIf="this.globals.logged.Pedido_pode_grade" routerLink="/admin/grade" class="btn_pedido emgrade">
+      <i class="ico_emgrade"></i><span>PEDIDO EM GRADE</span>
+    </button>
+    <button *ngIf="this.globals.logged.Company_active?.PODEPARAPAR && this.globals.logged.Pedido_pode_pap" routerLink="/admin/parapar" class="btn_pedido parapar">
+        <i class="ico_parapar"></i><span>PEDIDO PAR A PAR</span>
+    </button>
+  </div>
+  <div id="content_alertas">
+    <button (click)="openTickets()" *ngIf="this.globals?.varsIO.cpnsDesconto > 0" href="#" class="btn">
+        <i class="ico_percento"></i>
+        <span>{{ this.globals?.varsIO?.cpnsDesconto }}</span>
+        <p class="text_valign">CUPONS DE DESCONTO</p>
+        <div>VER CUPONS »</div>
+    </button>
+    <a routerLink="/admin/financeiro" class="btn">
+        <i class="ico_cifrao"></i>
+        <span>{{ this.globals?.varsIO?.pagsAbertos }}</span>
+        <p class="text_valign">PEDIDOS COM PAGAMENTO EM ABERTO</p>
+        <div>VER PEDIDOS »</div>
+    </a>
+    <a routerLink="/admin/financeiro" class="btn">
+        <i class="ico_exclama"></i>
+        <span>{{ this.globals?.varsIO?.pagsAbertosMes }}</span>
+        <p class="text_valign">VENCEM ESSE MÊS</p>
+        <div>IMPRIMIR BOLETOS »</div>
+    </a>
+  </div>
+  <div class="clear"></div>
+  <router-outlet *ngIf="!this.globals.varsIO.dashPedLen" name="dashboard_child_len"></router-outlet>
+  <router-outlet *ngIf="this.globals.varsIO.dashPedLen" name="dashboard_child_ped"></router-outlet>
+  <app-alertas></app-alertas>
+</div>
+
+<div (click)="closeTickets()" *ngIf="this.ticketIO" id="overlay"></div>
+
+<div *ngIf="this.ticketIO" id="seleciona_ticket">
+    <h1>Tickets disponíveis</h1>
+    <div id="tickets">
+        <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">NÚMERO DO CUPOM</th>
+                <th scope="col">FIM DA VIGÊNCIA</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ticket of let ticket of this.globals.logged.Tickets">
+                    <td>{{ ticket.NUMERO_CUPOM }}</td>
+                    <td><b>{{ ticket.FIM_VIGENCIA }}</b></td>
+                    <td>
+                        <button (click)="seleciona_ticket(ticket)" class="btn_pedido">
+                            SELECIONAR
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>     
+</div>

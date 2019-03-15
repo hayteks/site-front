@@ -1,0 +1,198 @@
+#content_title p{
+    float: right;
+    font-size: 14px;
+    color: #cbd3d6;
+    position: relative;
+    font-weight: bold;
+    margin: 0px 0px 0px 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#content_title p span{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -17px;
+    background-color: #cbd3d6;
+    font-size: 16px;
+    width: 8px;
+    height: 8px;
+    display: block;
+    border-radius: 50%;
+    margin: auto;
+}
+
+#lista{
+    float:left;
+    width:65%;
+    margin:30px 0px 10px 10px;
+    padding:0px;
+    border:1px solid #dce6ea;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#lista .table{
+    width:100%;
+    margin-bottom: 0;
+}
+
+#lista .table td{
+    vertical-align: middle;
+}
+#lista .lente{
+    float:left;
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    border: 0;
+}
+#lista .lente .l_espessura {
+    font-size: 30px;
+    line-height: 35px;
+}
+#lista .lente .l_tipo {
+    font-size: 10px;
+    margin: 0px;
+}
+#lista .texto{
+    float:left;
+    padding: 0px 15px;
+}
+#lista .detalhes{
+    display:none;
+    color:#545454;
+}
+#lista .table td {
+    padding: 7px;
+}
+#lista .table th {
+    padding: 15px;
+    vertical-align: middle;
+}
+#lista .btn_ico_pequeno{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 15px;
+    border-radius: 50%;
+    color: #c19acb;
+    border: 2px solid #c19acb;
+    text-align: center;
+    font-size: 12px;
+    padding: 1px 1px 0px 0px;
+}
+#lista .table-interna tr, #lista .table-interna td{
+    background-color: #f8fafb!important;
+}
+
+#resumo{
+    float:right;
+    width:31%;
+    margin:30px 10px 10px 0px;
+    padding:5px;
+    border:1px solid #dce6ea;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#resumo h3{
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 23px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    background: linear-gradient(left, #3b94df, #cf88ed);
+    background: -webkit-linear-gradient(left, #3b94df, #cf88ed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#resumo p:first-child{
+    border-top:1px solid #dce6ea;
+}
+#resumo p{
+    display: block;
+    width:78%;
+    min-height: 50px;
+    margin:0 auto;
+    font-size:14px;
+    line-height:50px;
+    color:#aab0b3;
+    border-bottom:1px solid #dce6ea;
+}
+#resumo .qtd_produtos span{
+    float:right;
+    font-size:16px;
+    color:#535353;
+}
+#resumo .val_total span{
+    float:right;
+    font-size:26px;
+    color:#535353;
+}
+
+#resumo button.btn_pedido{
+    padding: 0px;
+    height: 35px;
+    min-width: 70%;
+    cursor: pointer;
+    width: auto;
+    font-size: 11px!important;
+    line-height: 35px;
+    margin: 35px auto 6px;
+    font-weight: 100;
+}
+#resumo button.btn_bordacolor{
+    display: block;
+    margin: 0px auto 40px;
+    position: relative;
+    height: 35px;
+    min-width: 70%;
+    cursor: pointer;
+    width: auto;
+    
+}
+#resumo button.btn_bordacolor .txt_color{
+    font-size:10px!important;
+    line-height:30px;
+    display: block;
+    font-weight: 700;
+}
+
+#resumo .btn_cancelar_pedido{
+    min-width: 70%;
+    display: block;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    width: auto;
+    font-size:10px!important;
+    line-height:45px;
+    margin: 0px auto;
+}
+
+.ico_armacao{
+    display: inline-block;
+    border: 0;
+    vertical-align: middle;
+    margin-left: 20px;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    #content_title p{
+        display: none;
+    }
+    #lista{
+        width: 100%;
+        margin: 10px 0;
+    }
+    #resumo{
+        width:100%;
+    }
+    #lista .texto{
+        display:none;
+    }
+}

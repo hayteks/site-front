@@ -1,0 +1,27 @@
+<div  class="content">
+    <div id="content_title">
+        <h1>Pedido em Grade</h1>
+        <h5>ESCOLHA UMA LENTE</h5>
+    </div>
+ 
+    <div id="lentes_filtros">
+        <a href="javascript:void(0);" [ngClass]="{'active': showAll}" (click)="fshowAll()">TODAS AS LENTES</a>
+        <a href="javascript:void(0);" [ngClass]="{'active': showSim}" (click)="fshowSim()">VISÃO SIMPLES</a>
+        <a href="javascript:void(0);" [ngClass]="{'active': showPro}" (click)="fshowPro()">PROGRESSIVO</a>
+        <a href="javascript:void(0);" [ngClass]="{'active': showFaz}" (click)="fshowFaz()">FILTRO AZUL</a>
+        <!-- <a href="javascript:void(0);" [ngClass]="{'active': showMul}" (click)="fshowMul()">MULTIFOCAL</a> -->
+        <a href="javascript:void(0);" [ngClass]="{'active': showBlo}" (click)="fshowBlo()">BLOCO</a>
+    </div>
+        
+    <div class="clear"></div>
+
+    <div id="lentes">
+        <ng-container  *ngFor="let l of this.globals.logged.Lentes | callbackFor: filterGrade">
+            <div class="lente_box" *ngIf="(showAll) || (showSim && l.VISAO_SIMPLES) || (showPro && l.PROGRESSIVA) || (showFaz && l.FILTRO_AZUL) || (showMul && l.MULTIFOCAL) || (showBlo && l.BLOCO)">
+                <button (click)="abrePedido(l)" class="lente" [style.backgroundImage]="l.URL">
+                </button>
+            </div>
+        </ng-container>
+    </div>
+
+  </div>

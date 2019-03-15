@@ -1,0 +1,236 @@
+.enderecos_box{
+    width:calc(100% - 40px);
+    margin:20px;
+    text-align:left;
+}
+
+.endereco_box{
+    display: inline-block;
+    /* width: 450px; */
+    height: 210px;
+    border: 1px solid #dce6ea;
+    border-radius: 10px;
+    background-color: #f8fafb;
+    margin: 2% 2% 2% 0;
+    text-align: left;
+    width: 46%;
+    vertical-align: top;
+}
+
+.endereco_box hr{
+    margin: 10px auto 0;
+    width: 80%;
+}
+
+.endereco_box .ico_localizacao{
+    float: left;
+    width: 80px;
+    height: 80px;
+    background-color: #ff828d;
+    border-radius: 50%;
+    margin: 20px 10px 0 15px;
+}
+.endereco_box .endereco_text{
+    float: left;
+    margin: 20px 5px 0 0;
+    text-align: left;
+    width: calc(100% - 110px);
+}
+.endereco_box .endereco_text h3{
+    font-size: 20px;
+    color: #535353;
+    text-align: left;
+    margin: 0px;
+}
+.endereco_box .endereco_text span{
+    display: block;
+    font-size:14px;
+    color: #535353;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.endereco_box .endereco_text p{
+    font-size: 16px;
+    color: #535353;
+    text-align: left;
+    margin: 0;
+}
+.endereco_box .endereco_btns{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.endereco_box .endereco_btns button{
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+    margin: 7px 10px 0px;
+    vertical-align: top;
+}
+.endereco_box .endereco_btns button span{
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.endereco_box .endereco_btns button.txt_color{
+    font-size: 9px;
+    background-color: transparent;
+    border: 0px;
+    padding: 0;
+}
+
+.endereco_box .end_principal{
+    display: inline-block;
+    width: 100px;
+    height: 35px;
+    color: #535353;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 7px 10px 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: left;
+}
+.endereco_box .end_principal i{
+    float: left;
+}
+.endereco_box .end_principal p{
+    float: left;
+    margin: 2px 0 0 5px;
+    width: 60px;
+}
+#content_title .btn_pedido {
+    position: absolute;
+    width: 160px;
+    height: 30px;
+    right: 0px;
+    top: 10px;
+    font-size: 12px;
+    padding: 0;
+}
+#content_title {
+    position:relative;
+}
+
+
+#background_editar{
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.7;
+}
+#editar{
+    /* display:none; */
+    position: fixed;
+    padding:20px;
+    max-width: 400px;
+    width: 100%;
+    max-height: 450px;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius:10px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    z-index:1002;
+}
+
+#editar h1{
+    width:100%;
+    height:70px;
+    line-height:70px;
+    text-align: center;
+    color: #2a3a83;
+    font-size:30px;
+}
+
+#editar #inputs{
+    width: 300px;
+    margin:0 auto;
+    position:relative;
+    text-align: center;
+}
+#editar #inputs input{
+    display: inline-block;
+    width:300px;
+    height:70px;
+    line-height:70px;
+    background-color:#dce6ea;
+    color:#545454;
+    border-radius:10px;
+    border:0px;
+    margin: 6px auto;
+    text-align: center;
+}
+#editar .btn_comborda{
+    display:inline-block;
+    width:120px;
+    height:45px;
+    margin-top:40px;
+    margin-right:10%;
+    line-height:45px;
+}
+#editar .btn_pedido{
+    padding: 0 20px;
+    font-size: 12px;
+    margin: 0;
+    height: auto;
+    width: 45%;
+    line-height: 45px;
+}
+
+#editar .btn_bordacolor{
+    width: 45%;
+    height: 45px;
+}
+#editar .txt_color{
+    font-size: 12px;
+    padding: 0 20px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .endereco_box .ico_localizacao {
+        display: none;
+    }
+    .endereco_box {
+        width:100%;
+    }
+    .endereco_box .endereco_text {
+        margin: 10px 20px;
+        width: calc(100% - 40px);
+    }
+    .endereco_box .endereco_btns {
+        margin: 10px;
+        width: calc(100% - 20px);
+        position: relative;
+    }
+    .endereco_box .clear {
+        clear: none;
+    }
+    .endereco_box .endereco_btns button span {
+        font-size: 8px;
+        line-height: 12px;
+        text-align: center;
+    }
+    .endereco_box .endereco_btns button {
+        display: inline-block;
+        width: 60px;
+        height: 50px;
+        margin: 0px 15px;
+        line-height: 12px;
+    }
+    .endereco_box .end_principal{
+        display:inline;
+    }
+
+    
+}

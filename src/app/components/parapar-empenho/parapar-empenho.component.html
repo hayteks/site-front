@@ -1,0 +1,231 @@
+<div class="content">
+  <div id="lentes">
+    <div id="content_title">
+      <h1>Pedido Par a Par</h1>
+      <h3>ESCOLHA UMA LENTE</h3>
+    </div>
+    <div class="content_lens">
+      <div class="nuvem_topo"></div>
+      <ng-container *ngFor="let l of this.globals.logged.Lentes">
+          <div class="lente_box" *ngIf="l.GRADE">
+            <a alt="l.LENS_NAME" routerLink="/admin/parapar/empenho/{{l.PRODUTO}}" (click)="carregaLente(l.PRODUTO)" class="lente" [style.backgroundImage]="l.URL">
+            </a>
+          </div>
+      </ng-container>
+      <div class="nuvem_rodape"></div>
+    </div>
+  </div>
+  <div id="det_parapars" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+    <p class="len_material">{{ this.globals.varsIO.LenteIO.MATERIAL }}</p>
+    <p class="len_descricao">{{ this.globals.varsIO.LenteIO.CARAC_PRINCIPAL }}<br/><span>{{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA + ' ' + this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}</span></p>
+  </div>
+  <div id="parapars">
+    <div class="header_empenho">
+      <div class="clear"></div>
+      <div id="nao_atendida" *ngIf="this.globals.varsIO.naoAtendida?.length > 0">
+        <div class="na_header">
+          <span><i class="fas fa-exclamation fa-2x"></i></span>
+          <p>Aviso de estoque</p>
+          <div>A lente solicitada não esta disponível em estoque. Acompanhe:</div>
+        </div>
+        <div class="na_content">
+          <table>
+            <thead>
+              <tr>
+                <th>Grau</th>
+                <th>Qtd. pedida</th>
+                <th>Qtd. em estoque</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let falta of this.globals.varsIO.naoAtendida">
+                <td>{{ falta.Grau }}</td>
+                <td>{{ falta.QtdSolicitada }}</td>
+                <td>{{ falta.QtdAtendida }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table size-td-g">
+        <thead>
+          <tr>
+            <th class="text-left">Dados do pedido</th>
+            <th></th>
+            <th></th>
+            <th class="text-center">Esférico</th>
+            <th class="text-center">{{ this.globals.varsIO.LenteIO.PROGRESSIVA ? 'Adição' : 'Cilíndrico' }}</th>
+            <th class="text-center" *ngIf="this.globals.logged.Company_active.PODEMONTAGEM">Eixo</th>
+            <th class="text-center">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td class="text-left">
+                <input (keydown)="onKeyDown($event)" (change)="removeRequiredOs()" [(ngModel)]="this.globals.varsIO.empenhoPAP.OSCLI"  class="input oss" [ngClass]="this.req_os ? 'required' : ''" tabindex="1" type="text" placeholder="Sua OS" />
+              </td>
+              <th></th>
+              <th class="text-center">O.D.</th>
+              <td class="text-center">
+                <select (keydown)="onKeyDown($event)" class="input" tabindex="3" [ngClass]="this.req_odesf ? 'required' : ''" [(ngModel)]="this.globals.varsIO.empenhoPAP.DIR_ESFER" (change)="carregaCilAdd_OD()" style="width:70px">
+                  <ng-container *ngFor="let grade of this.globals.varsIO.LenteIO.GradesOPCODE; index as i">
+                    <ng-container *ngFor="let eixo_x of grade.EIXO_X; index as ii">
+                      <option value="{{i}}|{{ii}}">{{ (eixo_x.ESFERICO > 0 ? '+':'') }}{{ eixo_x.ESFERICO | currency:'BRL':'':'1.2-2':'pt' }}</option>
+                    </ng-container>
+                  </ng-container>
+                </select>
+              </td>
+              <td class="text-center">
+                <select (keydown)="onKeyDown($event)" class="input" tabindex="4" [ngClass]="this.req_odcil ? 'required' : ''" [(ngModel)]="this.globals.varsIO.empenhoPAP.DIR_CIL" (change)="getVal_OD()" style="width:70px">
+                  <ng-container *ngFor="let eixo_y of this.globals.varsIO.tmp_od_cilladd_y; index as i">
+                    <option value="{{i}}">{{ (eixo_y.EIXO > 0 ? '+':'') }}{{ eixo_y.EIXO | currency:'BRL':'':'1.2-2':'pt' }}</option>
+                  </ng-container>
+                </select>   
+              </td>
+              <td class="text-center" *ngIf="this.globals.logged.Company_active.PODEMONTAGEM">
+                <input (keydown)="onKeyDown($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.DIR_EIXO" class="input" tabindex="5" type="text" style="width:70px" (keyup)="limitEixoD()" />
+              </td>
+              <th class="text-center">
+                <p class="valor">{{ this.globals.varsIO.empenhoPAP.D_VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}</p>
+              </th>
+          </tr>
+          <tr>
+            <td class="text-left">
+              <input (keydown)="onKeyDown($event)" (change)="removeRequiredNome()" class="input oss" [ngClass]="this.req_nome ? 'required' : ''" [(ngModel)]="this.globals.varsIO.empenhoPAP.NOME" tabindex="2" type="text" placeholder="Nome do usuário" />
+            </td>
+            <th></th>
+            <th class="text-center">O.E.</th>
+            <td class="text-center">
+              <select (keydown)="onKeyDown($event)" class="input" tabindex="6" [ngClass]="this.req_oeesf ? 'required' : ''" [(ngModel)]="this.globals.varsIO.empenhoPAP.ESQ_ESFER" (change)="carregaCilAdd_OE()" style="width:70px">
+                <ng-container *ngFor="let grade of this.globals.varsIO.LenteIO.GradesOPCODE; index as i">
+                  <ng-container *ngFor="let eixo_x of grade.EIXO_X; index as ii">
+                    <option value="{{i}}|{{ii}}">{{ (eixo_x.ESFERICO > 0 ? '+':'') }}{{ eixo_x.ESFERICO | currency:'BRL':'':'1.2-2':'pt' }}</option>
+                  </ng-container>
+                </ng-container>
+              </select>   
+            </td>
+            <td class="text-center">
+              <select (keydown)="onKeyDown($event)" class="input" tabindex="7" [ngClass]="this.req_oecil ? 'required' : ''" [(ngModel)]="this.globals.varsIO.empenhoPAP.ESQ_CIL" (change)="getVal_OE()" style="width:70px">
+                <ng-container *ngFor="let eixo_y of this.globals.varsIO.tmp_oe_cilladd_y; index as i">
+                  <option value="{{i}}">{{ (eixo_y.EIXO > 0 ? '+':'') }}{{ eixo_y.EIXO | currency:'BRL':'':'1.2-2':'pt' }}</option>
+                </ng-container>
+              </select>  
+            </td>
+            <td class="text-center" *ngIf="this.globals.logged.Company_active.PODEMONTAGEM">
+              <input (keydown)="onKeyDown($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.ESQ_EIXO" class="input" tabindex="8" type="text" style="width:70px" (keyup)="limitEixoE()" />
+            </td>
+            <th class="text-center">
+              <p class="valor">{{ this.globals.varsIO.empenhoPAP.E_VALOR | currency:'BRL':'symbol':'1.2-2':'pt' }}</p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      
+      <table class="table size-td-g" id="montagem" *ngIf="this.globals.varsIO.papTemMontagem && this.globals.varsIO.naoAtendida?.length === 0">
+        <thead>
+          <tr>
+            <th colspan="3" class="text-left">Dados da Montagem</th>
+            <th></th>
+            <th colspan="3" class="text-left">Dados da Armação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="text-center">O.D.</th>
+            <td class="text-center"><input type="number" [ngClass]="this.req_RDNP ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.RDNP" placeholder="DNP" /></td>
+            <td class="text-center"><input type="number" [ngClass]="this.req_RALTURA ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.RALTURA" placeholder="Altura" /></td>
+            <td></td>
+            <td colspan="3" class="text-center td_montagem">
+              <input type="text" class="input_montagem" [ngClass]="this.req_MARCA ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.MARCA" placeholder="Marca" style="width:110px" />
+              <input type="text" class="input_montagem" [ngClass]="this.req_MODELO ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.MODELO" placeholder="Modelo" style="width:110px" />
+              <input type="text" class="input_montagem" [ngClass]="this.req_COR ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.COR" placeholder="Cor" style="width:110px" />
+            </td> 
+          </tr>
+          <tr>
+            <th class="text-center">O.E.</th>
+            <td class="text-center"><input type="number" [ngClass]="this.req_LDNP ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.LDNP" placeholder="DNP" /></td>
+            <td class="text-center"><input type="number" [ngClass]="this.req_LALTURA ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.LALTURA" placeholder="Altura" /></td>
+            <td></td>
+            <td colspan="3" class="text-center td_montagem">
+              <select type="text" class="input_montagem" [ngClass]="this.req_TIPOARO ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.TIPOARO" placeholder="Tipo de aro" style="width:90px">
+                <option value="">Selecione</option>
+                <option value="Aro Fechado">Aro Fechado</option>
+                <option value="Fio de nylon">Fio de nylon</option>
+                <option value="Fio de aço">Fio de aço</option>
+                <option class="trespecas" value="3 peças">3 peças</option>
+              </select>
+              <select type="text" class="input_montagem" [ngClass]="this.req_MATERIAL ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.MATERIAL" placeholder="Material" style="width:90px">
+                <option value="">Selecione</option>
+                <option value="Acetato">Acetato</option>
+                <option value="Metal">Metal</option>
+              </select>
+              <input type="number" class="input_montagem" [ngClass]="this.req_Aro ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.Aro" placeholder="Aro" style="width:70px" />
+              <input type="number" class="input_montagem" [ngClass]="this.req_PONTE ? 'required' : ''" (change)="removeREQ($event)" [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.PONTE" placeholder="Ponte" style="width:70px" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-checkbox [(ngModel)]="this.globals.varsIO.empenhoPAP.Detalhes.POLIMENTO">Polimento de borda</mat-checkbox>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="contrata_montagem" *ngIf="this.globals.logged.Company_active.PODEMONTAGEM">
+      <button class="btn_comborda txt_color" (click)="toggleMontagem()" *ngIf="!this.globals.varsIO.papTemMontagem">
+        CONTRATAR MONTAGEM
+      </button>
+      <button class="btn_limpar" (click)="toggleMontagem()" style="width:180px" *ngIf="this.globals.varsIO.papTemMontagem">
+        CANCELAR MONTAGEM
+      </button>
+    </div>
+    <div class="add_pedido">
+      <button class="btn_limpar" (click)="limparDados()" style="width:180px">LIMPAR DADOS</button>
+      <button class="btn_pedido">
+        <span class="add" (click)="addParapar()">ADICIONAR AO PEDIDO</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.globals.varsIO.LenteIO.Popup && this.globals.varsIO.naoAtendida?.length === 0" id="alerta">
+  <div class="alerta_fundo"></div>
+  <div class="alerta_content">
+      <div class="alerta_fechar ico_fechar" (click)="fechar()" ></div>
+      <div class="lente_escolhida text_valign" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+          <div class="lente_texto "> 
+              <span>ITEM ADICIONADO</span>
+              <p class="l_espessura" [innerHTML]="this.globals.varsIO.LenteIO.MATERIAL"></p>
+              <p class="l_tipo" [innerHTML]="this.globals.varsIO.LenteIO.CARAC_PRINCIPAL"></p>
+              <p class="l_descricao">
+                {{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA }}
+                <br/>
+                {{ this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}
+                <br/>
+                {{ this.globals.varsIO.LenteIO.CARAC_QUARTENARIA }}
+              </p>
+              <div class="clear"></div>
+              <p class="ldc_left first">QUANTIDADE:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.total_lentes }}</span></p>
+              <div class="clear"></div>
+              <p class="ldc_left">VALOR:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+              
+          </div>
+      </div>
+      <div class="lente_acao">
+          <h3>Seu carrinho</h3>
+          <div class="carrinho_detalhes_compra">
+            <p class="ldc_left first">QUANTIDADE DE PRODUTOS:<span class="ldc_right">{{ this.globals.logged.Pedido_total_lentes }}</span></p>
+            <div class="clear"></div>
+            <p class="ldc_left">VALOR TOTAL:<span class="ldc_right">{{ this.globals.logged.Pedido_valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+          </div>
+          <button (click)="finalizar()" class="btn_comborda txt_color">
+              FINALIZAR PEDIDO
+          </button>
+          <button (click)="continuar()" class="btn_pedido">
+              CONTINUAR COMPRANDO
+          </button>
+      </div>
+  </div>
+</div>

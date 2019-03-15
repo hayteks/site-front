@@ -1,0 +1,138 @@
+#pedidos{
+    text-align: center;
+    background-color: #f8fafb;
+    border: 2px solid #dce6ea;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#pedidos .link{
+    color: #9fa7ee;
+    text-decoration: underline;
+}
+
+
+#pedidos .table .detalhes{
+    display:none;
+    overflow: hidden;
+}
+
+.detalhes_lente p{
+    display: block;
+    font-size:14px;
+    color:#545454;
+    margin:2px 0;
+    text-align:left;
+    width:100%;
+}
+.detalhes_lente span{
+    display: block;
+    font-size:16px;
+    color:#545454;
+    text-align:left;
+    width:100%;
+}
+.table_dados{
+    margin: 20px 20px 50px;
+    color:#bac8ce;
+}
+.table_dados .pagina_atual{
+    width:50%;
+    float:left;
+    text-align:left;
+}
+.table_dados .paginacao{
+    width:50%;
+    float:right;
+    text-align:right;
+}
+.table_dados .paginacao a{
+    text-decoration: none;
+    color:#bac8ce;
+    margin:0 10px;
+}
+.table_dados .paginacao a span{
+    color:#9fa7ee;
+    margin:0 5px;
+}
+
+.detalhes_caixas{
+    float:left;
+    width:calc(100% - 40px);
+    background-color:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px;
+}
+
+.content_meuspedido{width:100%;overflow-x: auto;white-space:nowrap;height: 150px;}
+
+.filtro_pedidos_todos{
+    float:right;
+}
+.filtro_pedidos_todos .label-text{
+    font-size:14px;
+    color: #6d6d6d;
+    margin-left: 8px;
+}
+
+#content_meuspedido{
+    width:100%;
+    padding:20px;
+}
+#content_meuspedido .box{
+    display: inline-block;
+    margin: 5px;
+}
+#content_meuspedido .deate{
+    width:50%;
+    float:left;
+    text-align:left;
+}
+
+#content_meuspedido .deate label{
+    font-size:14px;
+    color: #6d6d6d;
+    margin: 0 8px 0 0;
+    display: inline-block;
+}
+#content_meuspedido .deate input{
+    width:135px;
+    height:35px;
+    font-size:14px;
+    color: #6d6d6d;
+    background-color:#dce6ea;
+    border:0px;
+    border-radius:5px;
+    padding:2px;
+}
+#content_meuspedido .deate button{
+    display: block;
+    width: 90px;
+    height: 35px;
+    border: 1px solid #6b93e8;
+    color: #6b93e8;
+    font-size: 12px;
+    line-height: 35px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+#content_meuspedido .filtro_pedidos{
+    width:50%;
+    float:right;
+    text-align:right;
+}
+#content_meuspedido .filtro_pedidos .label-text{
+    font-size:14px;
+    color: #6d6d6d;
+    margin: 0 15px 0 8px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+    .filtro_pedidos_todos{
+        display: none;
+    }
+}

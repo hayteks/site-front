@@ -1,0 +1,224 @@
+<div class="content">
+  <div id="lentes">
+    <div id="content_title" class="scroll_lentes">
+      <h1>Pedido em Grade</h1>
+      <h3>ESCOLHA UMA LENTE</h3>
+    </div>
+    <div class="content_lens">
+      <div class="nuvem_topo"></div>
+      <ng-container *ngFor="let l of this.globals.logged.Lentes">
+        <div class="lente_box" *ngIf="l.GRADE">
+          <a alt="l.LENS_NAME" routerLink="/admin/grade/empenho/{{l.PRODUTO}}" (click)="carregaLente(l.PRODUTO, true)" [ngClass]="this.lenteAtual === l.PRODUTO ? 'active' : ''" class="lente" [style.backgroundImage]="l.URL">
+          </a>
+        </div>
+      </ng-container>
+      <div class="nuvem_rodape"></div>
+    </div>
+  </div>
+  <div id="det_grades" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+    <p class="len_material">{{ this.globals.varsIO.LenteIO.MATERIAL }}</p>
+    <p class="len_descricao">{{ this.globals.varsIO.LenteIO.CARAC_PRINCIPAL }}<br/><span>{{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA + ' ' + this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}</span></p>
+    <button class="btn_detalhes" [ngClass]="detLentes ? 'rotate' : ''" (click)="detLentes = !detLentes">DETALHES DA LENTE</button>
+    <div class="clear"></div>
+    <div *ngIf="detLentes" id="detalhes_da_lente">
+      <div class="blocos">
+        <h3>INFORMAÇÕES DA LENTE</h3>
+        <!-- <p><span>Lente/Bloco</span>{{ (this.globals.varsIO.LenteIO.BLOCO ? 'Bloco' : 'Lente' ) }}</p>
+        <p><span>Material</span>{{ this.globals.varsIO.LenteIO.MATERIAL }}</p>
+        <p><span>Design</span>{{ this.globals.varsIO.LenteIO.CARAC_QUARTENARIA }}</p>
+        <p><span>Antirrisco</span>??</p>
+        <p><span>Antirreflexo</span>{{ this.globals.varsIO.LenteIO.CARAC_QUINTENARIA }}</p>
+        <p><span>Fotossensível</span>{{ this.globals.varsIO.LenteIO.MATERIAL }}</p> -->
+        <p><span>{{ this.globals.varsIO.LenteIO.CARAC_PRINCIPAL }}</span></p>
+        <p><span>{{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA }}</span></p>
+        <p><span>{{ this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}</span></p>
+        <p><span>{{ this.globals.varsIO.LenteIO.CARAC_QUARTENARIA }}</span></p>
+        <p><span>{{ this.globals.varsIO.LenteIO.CARAC_QUINTENARIA }}</span></p>
+      </div>
+
+      <ng-container *ngFor="let det of this.globals.varsIO.LenteIO.Detalhes">
+        <div class="blocos wborder">
+          <h3>DIAMÊTRO {{ det.DIAMETRO }}MM</h3>
+          <p><span>{{ det.TIPMED1 }}</span>{{ det.MEDIDA1 }}</p>
+          <p><span>{{ det.TIPMED2 }}</span>{{ det.MEDIDA2 }}</p>
+          <a target="_blank" href="#">VER TABELA DE GRAU</a>
+        </div>
+      </ng-container>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div id="grades">
+    <div class="header_empenho">
+      <div *ngIf="this.globals.logged.Company_active.PRECODINAMICO" class="forma_pgto">
+        <p>Forma de pagamento:</p>
+        <p>
+          <select class="totais" [(ngModel)]="this.globals.logged.Pedido_condpag" (ngModelChange)="onChange($event)" >
+              <option [ngValue]="cond" *ngFor="let cond of this.globals.varsIO.CondPag">{{ cond.DESCRICAO }}</option>
+          </select>
+        </p>
+      </div>
+      <div class="add_pedido" style="width:50%;">
+        <button class="btn_comborda" (click)="limpar()">
+          <span class="add">
+            LIMPAR
+          </span>
+        </button>
+        <button class="btn_pedido" (click)="empenha()">
+          <span class="add">
+            {{ this.globals.varsIO.naoAtendida?.length > 0 ? 'CONFIRMAR':'ADICIONAR AO PEDIDO' }}
+          </span>
+        </button>
+      </div>
+      <div class="total_lentes" style="width:20%;">
+        <p style="width:60%;line-height: 1">Total<br> de Lentes:</p>
+        <p style="width:25%;"><span class="totais">{{ this.globals.varsIO.LenteIO.total_lentes }}</span></p>
+      </div>
+      <div class="valor_lentes" style="width:25%;">
+          <p style="width:30%;line-height: 1">Valor<br> total:</p>
+          <p style="width:60%;"><span class="totais">{{ this.globals.varsIO.LenteIO.valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+      </div> 
+      <div class="clear"></div>
+      <div id="nao_atendida" *ngIf="this.globals.varsIO.naoAtendida?.length > 0">
+        <div class="na_header">
+          <span><i class="fas fa-exclamation fa-2x"></i></span>
+          <p>Aviso de estoque</p>
+          <div>Alteramos a quantidade dos produtos destacados por questão de disponibilidade em estoque. Acompanhe:</div>
+        </div>
+        <div class="na_content">
+          <table>
+            <thead>
+              <tr>
+                <th>Grau</th>
+                <th>Qtd. pedida</th>
+                <th>Qtd. em estoque</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let falta of this.globals.varsIO.naoAtendida">
+                <td>{{ falta.Grau }}</td>
+                <td>{{ falta.QtdSolicitada }}</td>
+                <td>{{ falta.QtdAtendida }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pedidos_filtros">
+        <ng-container *ngFor="let grades of this.globals.varsIO.LenteIO.GradesOPCODE">
+          <a class="btnGrade" href="javascript:void(0);" (click)="mudaGrade(grades.GRADE)" [ngClass]="grades.EXIBE ? 'active':''" >GRADE {{ grades.GRADE }} </a>
+        </ng-container>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <ng-container *ngFor="let grades of this.globals.varsIO.LenteIO.GradesOPCODE">
+        <table *ngIf="grades.EXIBE" class="table table-bordered table-condensed size-td-p">
+          <ng-container *ngFor="let e_x of grades.EIXO_X; first as isFirst">
+
+                <tr *ngIf="isFirst">
+                  <th *ngIf="!this.globals.varsIO.LenteIO.BLOCO" class="table_branco"></th>
+                  <th *ngIf="!this.globals.varsIO.LenteIO.BLOCO" class="table_branco"></th>
+                  <th colspan="50" class="table_branco fundo_traco_h"><p>Grau {{ grades.EIXO_X_NOME }}</p></th>
+                </tr>
+                <tr *ngIf="isFirst" class="primeira">
+                  <th *ngIf="!this.globals.varsIO.LenteIO.BLOCO" class="table_branco"></th>
+                  <th *ngIf="!this.globals.varsIO.LenteIO.BLOCO" scope="col"></th>
+                  <ng-container *ngFor="let h_y of e_x.EIXO_Y;">
+                    <th scope="col">{{ h_y.EIXO | number:'1.2-2' }}</th>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td *ngIf="isFirst && !this.globals.varsIO.LenteIO.BLOCO" class="table_branco fundo_traco_v" rowspan="300"><p class="txt_vertical">Grau Esférico</p></td>
+                  <th *ngIf="!this.globals.varsIO.LenteIO.BLOCO" scope="col">{{ (e_x.ESFERICO > 0 ? '+':'') }}{{ e_x.ESFERICO | number:'1.2-2' }}</th>
+  
+                  <ng-container *ngFor="let h_y of e_x.EIXO_Y;">
+                    <td scope="col" [ngClass]="h_y.CHAVE === 1 ? '': 'chave2'">
+                      <input [ngClass]="h_y.QTD > 0 ? h_y.ATENDIDA ? 'chaves':'chaves nao_atendida': h_y.ATENDIDA ? '':'nao_atendida'" (keydown)="onKeyDown($event);" (keyup)="onKeyUp($event)" type="text" [(ngModel)]="h_y.QTD" class="input" />
+                    </td>
+                  </ng-container>
+                </tr>
+          </ng-container>
+        </table>
+        <div class="clear"></div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="this.globals.varsIO.LenteIO.Popup && this.globals.varsIO.naoAtendida?.length === 0" class="alerta">
+  <div class="alerta_fundo"></div>
+  <div class="alerta_content">
+      <div class="alerta_fechar ico_fechar" (click)="fechar()" ></div>
+      <div class="lente_escolhida text_valign" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+          <div class="lente_texto "> 
+              <p class="l_espessura" [innerHTML]="this.globals.varsIO.LenteIO.MATERIAL"></p>
+              <p class="l_tipo" [innerHTML]="this.globals.varsIO.LenteIO.CARAC_PRINCIPAL"></p>
+              <p class="l_descricao">
+                {{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA }}
+                <br/>
+                {{ this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}
+                <br/>
+                {{ this.globals.varsIO.LenteIO.CARAC_QUARTENARIA }}
+              </p>
+              <div class="clear"></div>
+              <p class="ldc_left first">QUANTIDADE:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.total_lentes }}</span></p>
+              <div class="clear"></div>
+              <p class="ldc_left">VALOR:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+              
+          </div>
+      </div>
+      <div class="lente_acao">
+          <h3>Item adicionado com sucesso !</h3>
+          <div class="carrinho_detalhes_compra">
+            <p class="ldc_left first">QUANTIDADE DE PRODUTOS:<span class="ldc_right">{{ this.globals.logged.Pedido_total_lentes }}</span></p>
+            <div class="clear"></div>
+            <p class="ldc_left">VALOR TOTAL:<span class="ldc_right">{{ this.globals.logged.Pedido_valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+          </div>
+          <button (click)="finalizar()" class="btn_comborda txt_color">
+              FINALIZAR PEDIDO
+          </button>
+          <button (click)="continuar()" class="btn_pedido">
+              CONTINUAR COMPRANDO
+          </button>
+      </div>
+  </div>
+</div>
+
+<div class="alerta confirmacao" *ngIf="naoConfirmado">
+  <div class="alerta_fundo"></div>
+  <div class="alerta_content">
+    <div class="alerta_fechar ico_fechar" (click)="fechar()" ></div>
+    <div class="lente_escolhida text_valign" [style.backgroundColor]="'#'+ this.globals.varsIO.LenteIO.CORDOSITE">
+        <div class="lente_texto "> 
+            <p class="l_espessura" [innerHTML]="this.globals.varsIO.LenteIO.MATERIAL"></p>
+            <p class="l_tipo" [innerHTML]="this.globals.varsIO.LenteIO.CARAC_PRINCIPAL"></p>
+            <p class="l_descricao">
+              {{ this.globals.varsIO.LenteIO.CARAC_SEGUNDARIA }}
+              <br/>
+              {{ this.globals.varsIO.LenteIO.CARAC_TERCIARIA }}
+              <br/>
+              {{ this.globals.varsIO.LenteIO.CARAC_QUARTENARIA }}
+            </p>
+            <div class="clear"></div>
+            <p class="ldc_left first">QUANTIDADE:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.total_lentes }}</span></p>
+            <div class="clear"></div>
+            <p class="ldc_left">VALOR:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.valor_total_lentes | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></p>
+            
+        </div>
+    </div>
+    <div class="lente_acao">
+        <h3>ALGUNS ITENS NÃO FORAM ADICIONADOS !</h3>
+        <div class="carrinho_detalhes_compra">
+          <p class="ldc_left first">QUANTIDADE ANTERIOR:<span class="ldc_right">{{ this.globals.varsIO.total_lentes_check }}</span></p>
+          <div class="clear"></div>
+          <p class="ldc_left">QUANTIDADE ATUAL:<span class="ldc_right">{{ this.globals.varsIO.LenteIO.total_lentes }}</span></p>
+        </div>
+        <button (click)="carregaLente(this.lenNaoConfirmado)" class="btn_comborda txt_color">
+            NÃO ADICIONAR
+        </button>
+        <button (click)="empenha()" class="btn_pedido">
+            ADICIONAR
+        </button>
+    </div>
+  </div>
+</div>

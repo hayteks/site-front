@@ -1,0 +1,39 @@
+<div class="content">
+  <div id="content_title">
+    <h1>Acompanhar pedido</h1>
+    <div class="filtro_pedidos_todos">
+      <input type="checkbox" value="pedido_todos" [(ngModel)]="this.cod_master" /> <span class="label-text">EXIBIR TODAS AS EMPRESAS</span>
+    </div>
+  </div>
+  <div id="content_meuspedido">
+    <div class="deate">
+      <div class="box">
+        <label for="de">DE:</label>
+        <input type="date" name="de" [(ngModel)]="this.data_ini" />
+      </div>
+      <div class="box">
+        <label for="ate">ATÉ:</label>
+        <input type="date" name="ate" [(ngModel)]="this.data_fim" />
+      </div>
+      <div class="box">
+        <button (click)="filtrarHistorico()">FILTRAR</button>
+      </div>
+    </div>
+    <div class="filtro_pedidos">
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="P" /> <span class="label-text">Processando</span>
+      </div>
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="S" /> <span class="label-text">Em separação</span>
+      </div>
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="D" /> <span class="label-text">DANFE emitido</span>
+      </div>
+      <div class="box">
+        <input type="radio" name="pedido_todos" [(ngModel)]="this.status" value="E" /> <span class="label-text">Enviado</span>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <router-outlet name="dashboard_child"></router-outlet>
+</div>
